@@ -120,6 +120,73 @@
       .channel{flex:1 1 100%}
       .header-actions{display:none}
     }
+	
+	/* --- Modernisation des liens de chaînes et réseaux --- */
+.modern-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 0;
+}
+
+.btn-channel {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff8800, #ffb84d);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.btn-channel:hover {
+  background: linear-gradient(135deg, #ff9c33, #ffd280);
+  transform: translateY(-2px);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.btn-social.twitter { background: #1da1f2; }
+.btn-social.telegram { background: #0088cc; }
+.btn-social.discord { background: #5865f2; }
+
+.btn-social:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .btn-channel, .btn-social {
+    width: 90%;
+    text-align: center;
+    font-size: 13px;
+  }
+}
+
   </style>
 
   <!-- Google Analytics (replace or keep your ID) -->
@@ -229,8 +296,22 @@
         </div>
         <div class="m-body">
           <div class="channel-list">
-            <a class="channel" href="/p/exxen2.html" rel="noopener">KANAL 1</a>
-            <a class="channel" href="/p/kanal4.html" rel="noopener">Bein Sport 2</a>
+            <div class="m-col-open modern-links">
+  <a href="/p/exxen1.html" class="btn-channel" target="_blank">📺 KANAL 1</a>
+  <a href="/p/kanal1.html" class="btn-channel" target="_blank">Bein Sport 1</a>
+
+  <div class="social-links">
+    <a href="https://twitter.com/NazifSpor" target="_blank" class="btn-social twitter">
+      <i class="fa fa-twitter"></i> Twitter
+    </a>
+    <a href="https://t.me/ligtvizlesene1" target="_blank" class="btn-social telegram">
+      <i class="fa fa-telegram"></i> Telegram
+    </a>
+    <a href="https://discord.com/invite/4X6Bg8xNgG" target="_blank" class="btn-social discord">
+      <i class="fa fa-discord"></i> Discord
+    </a>
+  </div>
+</div>
           </div>
         </div>
       </article>
