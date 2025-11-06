@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Jekyll SEO Tag -->
+  {% seo %}
+
+  <!-- Font Awesome pour icônes sociales -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* === Styles globaux === */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #14171c;
+      color: #fff;
+    }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff8800;
+    }
+
+    /* === Match Card === */
+    .match-card {
+      background: #1e2327;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+    .match-card:hover { transform: translateY(-2px); }
+
+    .match-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .match-time {
+      background: #ff8800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .match-category { color: #ccc; }
+
+    .match-title {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      margin: 8px 0;
+      color: #fff;
+    }
+    .match-title span { color: #ff8800; margin: 0 6px; }
+
+    /* === Bouton menu === */
+    .menu-btn {
+      background: #ff8800;
+      color: #111;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .menu-btn:hover { background: #ff9c33; }
+
+    /* === Menu coulissant droite === */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100%;
+      background: #1e2327;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: right 0.3s ease;
+      z-index: 9999;
+    }
+    .side-menu.open { right: 0; }
+    .close-btn {
+      align-self: flex-end;
+      background: transparent;
+      color: #ff8800;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .side-menu a {
+      display: block;
+      padding: 10px 12px;
+      color: #fff;
+      background: #2f363d;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .side-menu a:hover { background: #454e56; }
+    .side-menu .twitter { background: #1da1f2; }
+    .side-menu .telegram { background: #0088cc; }
+    .side-menu .discord { background: #5865f2; }
+
+    hr { border: 0; border-top: 1px solid #2f363d; margin: 10px 0; }
+
+    /* === Responsive === */
+    @media (max-width: 480px) {
+      .match-title { font-size: 16px; }
+      .side-menu { width: 200px; padding: 16px; }
+      .menu-btn { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+
+    <!-- Contenu principal de chaque page -->
+    {{ content }}
+  </div>
+
+  <script>
+    // Fonction pour gérer plusieurs menus
+    document.querySelectorAll('.menu-btn').forEach(function(btn, index){
+      const menu = document.querySelectorAll('.side-menu')[index];
+      const closeBtn = menu.querySelector('.close-btn');
+
+      btn.addEventListener('click', () => menu.classList.add('open'));
+      closeBtn.addEventListener('click', () => menu.classList.remove('open'));
+
+      window.addEventListener('click', (e) => {
+        if(!menu.contains(e.target) && e.target !== btn){
+          menu.classList.remove('open');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
