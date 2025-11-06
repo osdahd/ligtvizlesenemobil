@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Basic SEO -->
+  <title>ligtvizlesene mobil — canlı maç izle</title>
+  <meta name="description" content="araftarium24 canlı maç izle, bedava maç izle - Sportboss - Jojobet TV - Selcuksports HD - Trgool" />
+  <link rel="canonical" href="https://USERNAME.github.io/legtvizlesene-mobile/" /> <!-- Remplace USERNAME et le chemin -->
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="ligtvizlesene mobil" />
+  <meta property="og:title" content="ligtvizlesene mobil — canlı maç izle" />
+  <meta property="og:description" content="araftarium24 canlı maç izle, bedava maç izle - Sportboss - Jojobet TV - Selcuksports HD - Trgool" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://USERNAME.github.io/legtvizlesene-mobile/" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=ligtvizlesene" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ligtvizlesene mobil — canlı maç izle" />
+  <meta name="twitter:description" content="araftarium24 canlı maç izle, bedava maç izle - Sportboss - Jojobet TV - Selcuksports HD - Trgool" />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x630.png?text=ligtvizlesene" />
+
+  <!-- Mobile-first critical CSS (small and embedded for speed) -->
+  <style>
+    :root{
+      --bg:#0f1518;
+      --card:#1f272b;
+      --muted:#9aa3ab;
+      --accent:#ff8800;
+      --white:#ffffff;
+      --radius:10px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0b0f11);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:12px;
+      box-sizing:border-box;
+      font-size:15px;
+      line-height:1.4;
+    }
+
+    .container{
+      max-width:680px;
+      margin:0 auto;
+    }
+
+    header.appbar{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .logo{
+      width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,#222,#111);
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      color:var(--accent);font-size:18px;border:1px solid rgba(255,255,255,0.03);
+    }
+    h1.site-title{font-size:18px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    /* Matches list */
+    .matches{margin-top:10px}
+    .matches .matches-top{
+      display:flex;justify-content:space-between;align-items:center;
+      background:var(--card);padding:10px;border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .matches-top .note{color:var(--accent);font-weight:600;font-size:13px}
+
+    .match{
+      margin-top:10px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg,#232a2e,var(--card));
+    }
+    .m-head{
+      display:flex;align-items:center;justify-content:space-between;padding:12px;
+      gap:8px;cursor:pointer;
+    }
+    .left{
+      display:flex;gap:10px;align-items:center;min-width:0;
+    }
+    .badge{
+      background:var(--accent);color:#111;padding:6px 8px;border-radius:6px;font-weight:700;font-size:12px;
+      flex-shrink:0;
+    }
+    .title-wrap{min-width:0}
+    .match-title{font-weight:700;margin:0;font-size:15px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .match-sub{color:var(--muted);font-size:13px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .m-toggle{color:var(--muted);font-size:18px}
+    .m-body{display:none;padding:10px;border-top:1px solid rgba(255,255,255,0.02);background:rgba(0,0,0,0.04)}
+    .channel-list{display:flex;flex-wrap:wrap;gap:8px}
+    .channel{
+      flex:1 1 calc(50% - 8px);
+      text-decoration:none;background:#111;padding:8px 10px;border-radius:8px;color:var(--white);
+      display:inline-flex;align-items:center;justify-content:center;font-weight:600;border:1px solid rgba(255,255,255,0.03);
+    }
+    .channel.small{font-size:13px;padding:6px 8px}
+    .socials{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .btn-social{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:600;font-size:13px}
+    .btn-social.follow{background:var(--accent);color:#111;border:none}
+
+    footer.note{color:var(--muted);font-size:12px;margin:16px 0 40px;text-align:center}
+
+    /* Responsive tweaks */
+    @media (max-width:420px){
+      .channel{flex:1 1 100%}
+      .header-actions{display:none}
+    }
+  </style>
+
+  <!-- Google Analytics (replace or keep your ID) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6E4FSN8YYD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6E4FSN8YYD');
+  </script>
+
+  <!-- Structured data for SEO (WebSite + example SportsEvent entries) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://USERNAME.github.io/legtvizlesene-mobile/#website",
+        "url": "https://USERNAME.github.io/legtvizlesene-mobile/",
+        "name": "ligtvizlesene mobil",
+        "description": "araftarium24 canlı maç izle, bedava maç izle - Sportboss - Jojobet TV - Selcuksports HD - Trgool"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://USERNAME.github.io/legtvizlesene-mobile/#org",
+        "name": "ligtvizlesene mobil",
+        "url": "https://USERNAME.github.io/legtvizlesene-mobile/"
+      },
+      {
+        "@type": "SportsEvent",
+        "name": "Ajax vs Galatasaray",
+        "startDate": "2025-11-06T23:00:00+03:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": "Şampiyonlar Ligi"
+        },
+        "description": "Canlı maç - yayın linkleri içerir"
+      },
+      {
+        "@type": "SportsEvent",
+        "name": "Manchester City vs Borussia Dortmund",
+        "startDate": "2025-11-06T23:00:00+03:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {"@type":"Place","name":"Şampiyonlar Ligi"}
+      }
+    ]
+  }
+  </script>
+
+</head>
+<body>
+  <main class="container" role="main">
+    <header class="appbar" role="banner">
+      <div class="logo" aria-hidden="true">LV</div>
+      <div>
+        <h1 class="site-title">ligtvizlesene mobil</h1>
+        <p class="lead">araftarium24 canlı maç izle · bedava maç izle</p>
+      </div>
+      <div style="margin-left:auto" class="header-actions" aria-hidden="true">
+        <!-- small place for icons if needed -->
+      </div>
+    </header>
+
+    <section class="matches" aria-label="Yayın akışı">
+      <div class="matches-top" role="region" aria-label="Açılış">
+        <div><strong>Yayın Akışı</strong></div>
+        <div class="note">Yayınlar saatinde aktif olur</div>
+      </div>
+
+      <!-- Match 1 -->
+      <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
+        <div class="m-head" role="button" tabindex="0" aria-expanded="false">
+          <div class="left">
+            <div class="badge" itemprop="startDate">23:00</div>
+            <div class="title-wrap">
+              <div class="match-title" itemprop="name">Ajax - Galatasaray</div>
+              <div class="match-sub">Şampiyonlar Ligi · FUTBOL</div>
+            </div>
+          </div>
+          <div class="m-toggle" aria-hidden="true">▾</div>
+        </div>
+        <div class="m-body" aria-hidden="true">
+          <div class="channel-list">
+            <!-- IMPORTANT: remplacE les href par tes pages légales / fichiers locaux -->
+            <a class="channel" href="/p/exxen1.html" rel="noopener">KANAL 1</a>
+            <a class="channel" href="/p/kanal1.html" rel="noopener">Bein Sport 1</a>
+            <a class="channel small" href="https://twitter.com/NazifSpor" target="_blank" rel="noopener">Twitter</a>
+            <a class="channel small" href="https://t.me/ligtvizlesene1" target="_blank" rel="noopener">Telegram</a>
+            <a class="channel small" href="https://discord.com/invite/4X6Bg8xNgG" target="_blank" rel="noopener">Discord</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Match 2 -->
+      <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
+        <div class="m-head" role="button" tabindex="0" aria-expanded="false">
+          <div class="left">
+            <div class="badge">23:00</div>
+            <div class="title-wrap">
+              <div class="match-title">Manchester City - Borussia Dortmund</div>
+              <div class="match-sub">UEFA · FUTBOL</div>
+            </div>
+          </div>
+          <div class="m-toggle">▾</div>
+        </div>
+        <div class="m-body">
+          <div class="channel-list">
+            <a class="channel" href="/p/exxen2.html" rel="noopener">KANAL 1</a>
+            <a class="channel" href="/p/kanal4.html" rel="noopener">Bein Sport 2</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Match 3 -->
+      <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
+        <div class="m-head" role="button" tabindex="0" aria-expanded="false">
+          <div class="left">
+            <div class="badge">23:00</div>
+            <div class="title-wrap">
+              <div class="match-title">Benfica - Bayer Leverkusen</div>
+              <div class="match-sub">UEFA · FUTBOL</div>
+            </div>
+          </div>
+          <div class="m-toggle">▾</div>
+        </div>
+        <div class="m-body">
+          <div class="channel-list">
+            <a class="channel" href="/p/exxen3.html" rel="noopener">KANAL 1</a>
+            <a class="channel" href="/p/kanal6.html" rel="noopener">Bein Sport 3</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="socials" aria-label="Réseaux sociaux">
+        <a class="btn-social follow" href="https://twitter.com/NazifSpor" target="_blank" rel="noopener">Follow @NazifSpor</a>
+        <a class="btn-social" href="https://t.me/ligtvizlesene" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn-social" href="https://discord.com/invite/4X6Bg8xNgG" target="_blank" rel="noopener">Discord</a>
+      </div>
+
+    </section>
+
+    <footer role="contentinfo">
+      <p class="note">Bu sayfa mobil için optimize edilmiştir. Telif haklarına saygı gösterin — yalnızca yasal yayın linklerini paylaşın.</p>
+    </footer>
+  </main>
+
+  <!-- JS: natif pour accordion + accessibilité -->
+  <script>
+    (function(){
+      function toggleMatch(head, body){
+        const expanded = head.getAttribute('aria-expanded') === 'true';
+        head.setAttribute('aria-expanded', String(!expanded));
+        body.style.display = expanded ? 'none' : 'block';
+        head.querySelector('.m-toggle').textContent = expanded ? '▾' : '▴';
+      }
+
+      document.querySelectorAll('.match').forEach(function(match){
+        const head = match.querySelector('.m-head');
+        const body = match.querySelector('.m-body');
+        // start closed
+        body.style.display = 'none';
+        head.addEventListener('click', function(){ toggleMatch(head, body); });
+        head.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            toggleMatch(head, body);
+          }
+        });
+      });
+
+      // small optimization: prevent mobile double-tap zoom on buttons
+      document.addEventListener('touchstart', function(){}, {passive:true});
+    })();
+  </script>
+</body>
+</html>
