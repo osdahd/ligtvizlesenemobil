@@ -120,109 +120,6 @@
       .channel{flex:1 1 100%}
       .header-actions{display:none}
     }
-	
-	/* Match card modernisée */
-.match-card {
-  background: #1e2327;
-  border-radius: 14px;
-  padding: 16px;
-  margin: 15px 0;
-  color: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.match-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
-}
-
-.match-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.match-time {
-  background: #ff8800;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-}
-
-.match-category {
-  color: #ccc;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.match-title {
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  margin: 10px 0;
-  color: #fff;
-}
-.match-title span {
-  color: #ff8800;
-  margin: 0 6px;
-}
-
-.match-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.btn-watch {
-  background: #ff8800;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 8px 14px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.btn-watch:hover {
-  background: #ff9c33;
-}
-
-.btn-social {
-  background: #2f363d;
-  color: #fff;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 14px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.btn-social:hover {
-  background: #444b52;
-}
-
-.btn-social.twitter { background: #1da1f2; }
-.btn-social.telegram { background: #0088cc; }
-.btn-social.discord { background: #5865f2; }
-
-/* Mobile-friendly */
-@media (max-width: 480px) {
-  .match-card {
-    padding: 12px;
-  }
-  .match-title {
-    font-size: 16px;
-  }
-  .btn-watch, .btn-social {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-}
-
   </style>
 
   <!-- Google Analytics (replace or keep your ID) -->
@@ -296,26 +193,28 @@
 
       <!-- Match 1 -->
       <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
-       	  <!-- Match Card -->
-<div class="match-card">
-  <div class="match-header">
-    <span class="match-time">23:00</span>
-    <span class="match-category">FUTBOL</span>
-  </div>
-  <h2 class="match-title">Ajax <span>vs</span> Galatasaray</h2>
-
-  <div class="match-actions">
-    <a href="/p/exxen1.html" class="btn-watch" target="_blank">📺 Regarder</a>
-    <a href="https://twitter.com/NazifSpor" class="btn-social twitter" target="_blank">Twitter</a>
-    <a href="https://t.me/ligtvizlesene1" class="btn-social telegram" target="_blank">Telegram</a>
-    <a href="https://discord.com/invite/4X6Bg8xNgG" class="btn-social discord" target="_blank">Discord</a>
-  </div>
-</div>
+        <div class="m-head" role="button" tabindex="0" aria-expanded="false">
+          <div class="left">
+            <div class="badge" itemprop="startDate">23:00</div>
+            <div class="title-wrap">
+              <div class="match-title" itemprop="name">Ajax - Galatasaray</div>
+              <div class="match-sub">Şampiyonlar Ligi · FUTBOL</div>
+            </div>
+          </div>
+          <div class="m-toggle" aria-hidden="true">▾</div>
+        </div>
+        <div class="m-body" aria-hidden="true">
+          <div class="channel-list">
+            <!-- IMPORTANT: remplacE les href par tes pages légales / fichiers locaux -->
+            <a class="channel" href="/p/exxen1.html" rel="noopener">KANAL 1</a>
+            <a class="channel" href="/p/kanal1.html" rel="noopener">Bein Sport 1</a>
+            <a class="channel small" href="https://twitter.com/NazifSpor" target="_blank" rel="noopener">Twitter</a>
+            <a class="channel small" href="https://t.me/ligtvizlesene1" target="_blank" rel="noopener">Telegram</a>
+            <a class="channel small" href="https://discord.com/invite/4X6Bg8xNgG" target="_blank" rel="noopener">Discord</a>
+          </div>
+        </div>
       </article>
 	  
-	  
-
-
       <!-- Match 2 -->
       <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
         <div class="m-head" role="button" tabindex="0" aria-expanded="false">
