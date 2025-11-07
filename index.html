@@ -243,107 +243,6 @@
   .menu-btn { width: 100%; text-align: center; }
 }
 
-.match {
-  background: #1e2327;
-  border-radius: 14px;
-  margin: 12px 0;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-.match:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-}
-.m-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #252b31, #1e2327);
-}
-.m-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.badge {
-  background: #ff8800;
-  color: #111;
-  font-weight: bold;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-.m-title-wrap {
-  display: flex;
-  flex-direction: column;
-}
-.match-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
-  margin: 0;
-}
-.match-title span {
-  color: #ff8800;
-  font-weight: 500;
-  margin: 0 4px;
-}
-.match-sub {
-  color: #aaa;
-  font-size: 13px;
-  margin: 2px 0 0;
-}
-.m-toggle {
-  background: none;
-  border: none;
-  color: #ff8800;
-  font-size: 20px;
-  transition: transform .3s;
-}
-.m-head[aria-expanded="true"] .m-toggle {
-  transform: rotate(90deg);
-}
-.m-body {
-  max-height: 0;
-  overflow: hidden;
-  background: #2f363d;
-  transition: max-height .4s ease;
-}
-.m-head[aria-expanded="true"] + .m-body {
-  max-height: 300px;
-}
-.channel-list {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 16px 16px;
-  gap: 10px;
-}
-.channel {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: #3a424a;
-  border-radius: 10px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  transition: background .2s;
-}
-.channel:hover { background: #ff8800; color: #111; }
-.channel i { font-size: 16px; }
-.channel.twitter { background: #1da1f2; }
-.channel.telegram { background: #0088cc; }
-.channel.discord { background: #5865f2; }
-@media (max-width: 480px) {
-  .match-title { font-size: 16px; }
-  .badge { font-size: 12px; padding: 5px 8px; }
-  .m-head { padding: 12px; }
-}
-
 
   </style>
 
@@ -449,22 +348,7 @@
         </div>
       </article>
 
-      <!-- Match 3 -->
-         <div class="title-wrap">
-              <div class="match-title">Benfica - Bayer Leverkusen</div>
-              <div class="match-sub">UEFA · FUTBOL</div>
-            </div>
-          </div>
-          <div class="m-toggle">▾</div>
-        </div>
-        <div class="m-body">
-          <div class="channel-list">
-            <a class="channel" href="/p/exxen3.html" rel="noopener">KANAL 1</a>
-            <a class="channel" href="/p/kanal6.html" rel="noopener">Bein Sport 3</a>
-          </div>
-        </div>
-      </article>
-
+    
     </section>
 
     <footer role="contentinfo">
@@ -520,16 +404,6 @@
     }
   });
 </script>
-
-<script>
-document.querySelectorAll('.m-head').forEach(head => {
-  head.addEventListener('click', () => {
-    const expanded = head.getAttribute('aria-expanded') === 'true';
-    head.setAttribute('aria-expanded', !expanded);
-  });
-});
-</script>
-
 
 
 </body>
