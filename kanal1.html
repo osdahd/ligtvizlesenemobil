@@ -70,14 +70,14 @@ p.lead {
   font-size: 13px;
 }
 
-  /* Conteneur parent de l'iframe (pleine largeur) */
+/* Conteneur parent de l'iframe (pleine largeur) */
 div[style*="width: 100%"] {
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0; /* Supprime le padding pour éviter les débordements */
   box-sizing: border-box;
-  overflow: hidden; /* Évite les barres de défilement horizontales */
 }
+
 
 /* --- Styles pour le player (pleine largeur, responsive) --- */
 .player-wrapper {
@@ -94,7 +94,7 @@ div[style*="width: 100%"] {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; /* Ratio 16:9 */
-  height: 0;
+  height: 0; /* La hauteur est définie par le padding-bottom */
   overflow: hidden;
   background: #000;
   margin: 0;
@@ -110,7 +110,8 @@ div[style*="width: 100%"] {
   border: none;
 }
 
-/* Correction pour mobile (ajuste le ratio si nécessaire) */
+
+/* Correction pour mobile */
 @media (max-width: 768px) {
   .player-container {
     padding-bottom: 65%; /* Ratio légèrement plus grand pour mobile */
