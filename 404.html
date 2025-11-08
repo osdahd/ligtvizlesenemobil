@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 — Page non trouvée</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--muted:#9aa4b2}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6eef6;background:linear-gradient(180deg,var(--bg) 0%, #071022 100%);display:flex;align-items:center;justify-content:center}
+    .wrap{width:min(920px,94%);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:28px;display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:center;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .logo{height:120px;width:120px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:36px;color:white}
+    h1{margin:0;font-size:40px;letter-spacing:-1px}
+    p.lead{margin:8px 0 18px;color:var(--muted);font-size:15px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    a.btn{display:inline-block;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600}
+    a.primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white}
+    a.ghost{border:1px solid rgba(255,255,255,0.06);color:#d9e6f2;background:transparent}
+    .search{display:flex;gap:10px;align-items:center}
+    input[type=text]{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit}
+    button.search-btn{padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);cursor:pointer}
+    .hint{margin-top:12px;color:var(--muted);font-size:13px}
+    footer{grid-column:1/-1;margin-top:6px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between}
+    .code{font-weight:700;background:rgba(255,255,255,0.02);padding:6px 10px;border-radius:8px}
+    @media (max-width:720px){.wrap{grid-template-columns:1fr;gap:16px;padding:20px}.logo{height:96px;width:96px;font-size:28px}}
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center">
+      <div class="logo" aria-hidden="true">404</div>
+      <div style="text-align:center;color:var(--muted);font-size:13px">m.ligtvizlesene54.pro</div>
+    </div>
+
+    <div>
+      <h1>Oups — Page introuvable</h1>
+      <p class="lead">La page que vous cherchez n'existe pas (ou a été déplacée). Peut‑être que l'URL est incorrecte, ou que le contenu a été supprimé.</p>
+
+      <div class="actions" role="navigation" aria-label="Actions">
+        <a class="btn primary" href="http://m.ligtvizlesene54.pro">Retour à l'accueil</a>
+        <a class="btn ghost" href="http://m.ligtvizlesene54.pro/sitemap.xml">Voir le sitemap</a>
+      </div>
+
+      <form class="search" action="http://m.ligtvizlesene54.pro/" method="get" onsubmit="handleSearch(event)">
+        <input id="q" name="q" type="text" placeholder="Rechercher sur le site…" aria-label="Rechercher sur le site">
+        <button class="search-btn" type="submit" aria-label="Rechercher">🔎</button>
+      </form>
+
+      <div class="hint">Astuce : vérifiez l'orthographe de l'URL ou revenez à la page d'accueil.</div>
+
+      <footer>
+        <span class="code">Erreur 404</span>
+        <span>Contactez l'administrateur si le problème persiste.</span>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    function handleSearch(e){
+      // Si le site a une recherche côté serveur, soumettre tel quel.
+      // Sinon rediriger vers Google site: (dégrade gracieusement)
+      var q = document.getElementById('q').value.trim();
+      if(!q){ e.preventDefault(); return; }
+      // Exécute une recherche site: via Google dans une nouvelle fenêtre
+      e.preventDefault();
+      var url = 'https://www.google.com/search?q=site:' + encodeURIComponent(location.hostname) + '+' + encodeURIComponent(q);
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
