@@ -130,6 +130,15 @@
       font-size:16px;
       margin-top:0;
     }
+    .player-container {
+  position: relative;
+  width: 100%;
+  max-width: 680px; /* cohérent avec ton site mobile */
+  margin: 0 auto;   /* centrer le player */
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
   </style>
 </head>
 <body>
@@ -154,10 +163,12 @@
 </div>
 
 <!-- Player Container -->
-<div style="flex-grow:1; min-height:250px;">
-  <div class="player-container">
-    <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
-  </div>
+<div class="player-container">
+  <iframe 
+    src="https://www.bosstv27.com/channel?id=yayinzirve" 
+    allowfullscreen 
+    style="width:100%; height:56vw; max-height:480px; border:none;"
+  ></iframe>
 </div>
 
 <!-- Contenu SEO optimisé -->
