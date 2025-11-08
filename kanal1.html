@@ -1,1 +1,165 @@
-                                                          <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" width="100%" height="100%"  scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bein Sport 1 | Ligtvizlesene Mobil</title>
+  <meta name="description" content="Bein Sport 1 canlı yayınını mobil olarak izleyin. Ligtvizlesene mobil ile tüm maçları HD olarak takip edin.">
+  <meta name="keywords" content="Bein Sport 1, canlı maç izle, lig tv mobil, taraftarium24">
+  
+  <!-- Styles copiés depuis la page principale pour cohérence -->
+  <style>
+    :root{
+      --bg:#0f1518;
+      --card:#1f272b;
+      --muted:#9aa3ab;
+      --accent:#ff8800;
+      --white:#ffffff;
+      --radius:10px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%; margin:0;}
+    body{
+      background:linear-gradient(180deg,var(--bg),#0b0f11);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      font-size:15px;
+      line-height:1.4;
+      display:flex;
+      flex-direction:column;
+    }
+    header.appbar{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+    }
+    .logo{
+      width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,#222,#111);
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      color:var(--accent);font-size:18px;border:1px solid rgba(255,255,255,0.03);
+    }
+    h1.site-title{font-size:18px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+    
+    .player-container{
+      flex-grow:1;
+      position:relative;
+      width:100%;
+      background:#000;
+    }
+    iframe{
+      position:absolute;
+      top:0;left:0;
+      width:100%;
+      height:100%;
+      border:none;
+    }
+    
+    /* Menu latéral et bouton */
+    .menu-btn{
+      background: var(--accent);
+      color:#111;
+      padding:10px 16px;
+      border:none;
+      border-radius:8px;
+      font-weight:600;
+      cursor:pointer;
+      margin:10px 12px;
+      transition:0.2s;
+    }
+    .menu-btn:hover{background:#ff9c33;}
+    
+    .side-menu{
+      position:fixed;
+      top:0; right:-250px;
+      width:250px;
+      height:100%;
+      background:#1e2327;
+      box-shadow:-4px 0 12px rgba(0,0,0,0.5);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      transition:right 0.3s ease;
+      z-index:9999;
+    }
+    .side-menu.open{right:0;}
+    .close-btn{
+      align-self:flex-end;
+      background:transparent;
+      color:var(--accent);
+      border:none;
+      font-size:28px;
+      cursor:pointer;
+      margin-bottom:10px;
+    }
+    .side-menu .menu-link{
+      display:block;
+      padding:10px 12px;
+      color:#fff;
+      background:#2f363d;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:500;
+      transition: background 0.2s;
+    }
+    .side-menu .menu-link:hover{background:#454e56;}
+    .side-menu .twitter{background:#1da1f2;}
+    .side-menu .telegram{background:#0088cc;}
+    .side-menu .discord{background:#5865f2;}
+    
+    footer.note{
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+      padding:10px 12px;
+      background:#0b0f11;
+    }
+  </style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="logo">LV</div>
+  <div>
+    <h1 class="site-title">Ligtvizlesene Mobil</h1>
+    <p class="lead">Bein Sport 1 Canlı Yayın</p>
+  </div>
+</header>
+
+<button id="openMenuBtn" class="menu-btn">☰ Kanallar / Sosyal Hesaplarimiz</button>
+
+<div id="sideMenu" class="side-menu">
+  <button id="closeMenuBtn" class="close-btn">&times;</button>
+  <a href="exxen1.html" class="menu-link">📺 KANAL 1</a>
+  <a href="kanal1.html" class="menu-link">Bein Sport 1</a>
+  <hr>
+  <a href="https://twitter.com/NazifSpor" class="menu-link twitter" target="_blank">Twitter</a>
+  <a href="https://t.me/ligtvizlesene1" class="menu-link telegram" target="_blank">Telegram</a>
+  <a href="https://discord.com/invite/4X6Bg8xNgG" class="menu-link discord" target="_blank">Discord</a>
+</div>
+
+<div class="player-container">
+  <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
+</div>
+
+<footer class="note">
+  Bu sayfa mobil için optimize edilmiştir. Telif haklarına saygı gösterin — yalnızca yasal yayın linklerini paylaşın.
+</footer>
+
+<script>
+  const menu = document.getElementById('sideMenu');
+  const openBtn = document.getElementById('openMenuBtn');
+  const closeBtn = document.getElementById('closeMenuBtn');
+
+  openBtn.addEventListener('click', () => { menu.classList.add('open'); });
+  closeBtn.addEventListener('click', () => { menu.classList.remove('open'); });
+  window.addEventListener('click', (e) => {
+    if(!menu.contains(e.target) && e.target !== openBtn){ menu.classList.remove('open'); }
+  });
+</script>
+
+</body>
+</html>
