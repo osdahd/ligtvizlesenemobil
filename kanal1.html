@@ -7,226 +7,125 @@
   <meta name="description" content="Canlı maç izle bedava HD! Taraftarium24, SelçukSports, Inat TV, Beleş Maç, Justyayın ve tüm spor müsabakalarını kesintisiz izleyin. Bein Sport 1 canlı yayın, şifresiz, mobil uyumlu, yüksek kalite.">
   <meta name="keywords" content="Taraftarium24 canlı maç izle, canlı maç izle bedava, SelçukSports canlı maç izle HD, Inat TV canlı maç girişi, Bein Sport 1 canlı izle, bedava maç izle kesintisiz, Justyayın canlı maç, beleş maç izle, canlı maç izle mobil, canlı maç izle 2025">
 <style>
-  :root {
-  --bg: #0f1518;
-  --card: #1f272b;
-  --muted: #9aa3ab;
-  --accent: #ff8800;
-  --white: #ffffff;
-  --radius: 10px;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-}
+    :root{
+      --bg:#0f1518;
+      --card:#1f272b;
+      --muted:#9aa3ab;
+      --accent:#ff8800;
+      --white:#ffffff;
+      --radius:10px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html, body {
+      margin:0;
+      padding:0;
+      height:auto;
+      background: linear-gradient(180deg,var(--bg),#0b0f11);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size:15px;
+      line-height:1.4;
+    }
+    header.appbar {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+    }
+    .logo{
+      width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,#222,#111);
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      color:var(--accent);font-size:18px;border:1px solid rgba(255,255,255,0.03);
+    }
+    h1.site-title{font-size:18px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Évite les barres de défilement horizontales */
-}
+    /* Bouton menu */
+    .menu-btn{
+      background: var(--accent);
+      color:#111;
+      padding:10px 16px;
+      border:none;
+      border-radius:8px;
+      font-weight:600;
+      cursor:pointer;
+      margin:10px 12px;
+      transition:0.2s;
+    }
+    .menu-btn:hover{background:#ff9c33;}
 
-body {
-  background: linear-gradient(180deg, var(--bg), #0b0f11);
-  color: var(--white);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 15px;
-  line-height: 1.4;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Assure que le body prend toute la hauteur */
-}
+    /* Menu latéral */
+    .side-menu{
+      position:fixed;
+      top:0; right:-250px;
+      width:250px;
+      height:100%;
+      background:#1e2327;
+      box-shadow:-4px 0 12px rgba(0,0,0,0.5);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      transition:right 0.3s ease;
+      z-index:9999;
+    }
+    .side-menu.open{right:0;}
+    .close-btn{
+      align-self:flex-end;
+      background:transparent;
+      color:var(--accent);
+      border:none;
+      font-size:28px;
+      cursor:pointer;
+      margin-bottom:10px;
+    }
+    .side-menu .menu-link{
+      display:block;
+      padding:10px 12px;
+      color:#fff;
+      background:#2f363d;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:500;
+      transition: background 0.2s;
+    }
+    .side-menu .menu-link:hover{background:#454e56;}
+    .side-menu .twitter{background:#1da1f2;}
+    .side-menu .telegram{background:#0088cc;}
+    .side-menu .discord{background:#5865f2;}
 
-header.appbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  width: 100%;
-  box-sizing: border-box;
-}
+    /* Player responsive */
+    .player-container{
+      width:100%;
+      max-width:680px;
+      margin: 12px auto;
+      border-radius:10px;
+      overflow:hidden;
+      background:#000;
+    }
+    .player-container iframe{
+      width:100%;
+      height:100vh; /* temporaire pour test */
+      min-height:500px;
+      border:none;
+    }
 
-.logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #222, #111);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: var(--accent);
-  font-size: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-}
+    footer.note{
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+      padding:10px 12px;
+      background:#0b0f11;
+    }
 
-h1.site-title {
-  font-size: 18px;
-  margin: 0;
-}
-
-p.lead {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* Conteneur parent de l'iframe (pleine largeur) */
-div[style*="width: 100%"] {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0; /* Supprime le padding pour éviter les débordements */
-  box-sizing: border-box;
-}
-
-
-/* --- Styles pour le player (pleine largeur, responsive) --- */
-.player-wrapper {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-/* Conteneur du player (ratio 16:9, pleine largeur) */
-.player-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 */
-  height: 0; /* La hauteur est définie par le padding-bottom */
-  overflow: hidden;
-  background: #000;
-  margin: 0;
-}
-
-/* Style de l'iframe (remplit le conteneur) */
-.player-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-
-/* Correction pour mobile */
-@media (max-width: 768px) {
-  .player-container {
-    padding-bottom: 65%; /* Ratio légèrement plus grand pour mobile */
-  }
-}
-
-/* Espace après le player pour éviter le chevauchement */
-.player-container + * {
-  margin-top: 20px;
-}
-/* Correction pour iOS */
-@supports (-webkit-touch-callout: none) {
-  .player-container iframe {
-    height: calc(100% + 20px) !important;
-  }
-}
-  
-/* --- Styles pour le menu et boutons --- */
-.menu-btn {
-  background: var(--accent);
-  color: #111;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 10px 12px;
-  transition: 0.2s;
-}
-
-.menu-btn:hover {
-  background: #ff9c33;
-}
-
-.side-menu {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 250px;
-  height: 100%;
-  background: #1e2327;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: right 0.3s ease;
-  z-index: 9999;
-}
-
-.side-menu.open {
-  right: 0;
-}
-
-.close-btn {
-  align-self: flex-end;
-  background: transparent;
-  color: var(--accent);
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.side-menu .menu-link {
-  display: block;
-  padding: 10px 12px;
-  color: #fff;
-  background: #2f363d;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.side-menu .menu-link:hover {
-  background: #454e56;
-}
-
-.side-menu .twitter {
-  background: #1da1f2;
-}
-
-.side-menu .telegram {
-  background: #0088cc;
-}
-
-.side-menu .discord {
-  background: #5865f2;
-}
-
-footer.note {
-  color: var(--muted);
-  font-size: 12px;
-  text-align: center;
-  padding: 10px 12px;
-  background: #0b0f11;
-  margin-top: auto; /* Pousse le footer en bas */
-}
-
-.seo-content {
-  padding: 12px;
-  background: var(--card);
-  margin: 10px;
-  border-radius: var(--radius);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.seo-content h2 {
-  color: var(--accent);
-  font-size: 16px;
-  margin-top: 0;
-}
-</style>
+    @media(max-width:480px){
+      .player-container iframe{
+        min-height:300px;
+        height:auto;
+      }
+    }
+  </style>
 </head>
 <body>
 <header class="appbar">
@@ -250,11 +149,9 @@ footer.note {
 </div>
 
 <!-- Conteneur parent (pleine largeur) -->
-<div style="width: 100%; margin: 0 auto; padding: 0; box-sizing: border-box;">
-  <!-- Conteneur du player -->
-  <div class="player-container">
-    <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
-  </div>
+<div class="player-container">
+  <!-- iframe directement depuis bosstv27.com -->
+  <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
 </div>
 
 <!-- Contenu en dessous du player -->
