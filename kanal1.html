@@ -131,13 +131,28 @@
       margin-top:0;
     }
     .player-container {
+  width: 100%;
+  max-width: 680px; /* centrage avec ton site */
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+.video-wrapper {
   position: relative;
   width: 100%;
-  max-width: 680px; /* cohérent avec ton site mobile */
-  margin: 0 auto;   /* centrer le player */
+  padding-top: 56.25%; /* 16:9 ratio */
   background: #000;
   border-radius: 10px;
   overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
   </style>
 </head>
@@ -164,12 +179,15 @@
 
 <!-- Player Container -->
 <div class="player-container">
-  <iframe 
-    src="https://www.bosstv27.com/channel?id=yayinzirve" 
-    allowfullscreen 
-    style="width:100%; height:56vw; max-height:480px; border:none;"
-  ></iframe>
+  <div class="video-wrapper">
+    <iframe 
+      src="https://www.bosstv27.com/channel?id=yayinzirve" 
+      allowfullscreen
+      frameborder="0"
+    ></iframe>
+  </div>
 </div>
+
 
 <!-- Contenu SEO optimisé -->
 <div class="seo-content">
