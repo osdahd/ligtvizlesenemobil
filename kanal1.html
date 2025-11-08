@@ -129,16 +129,17 @@
 .player-container {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 (ajuste si nécessaire) */
+  padding-bottom: 56.25%; /* Ratio 16:9 */
   height: 0;
   overflow: hidden;
   margin: 0 auto;
   background: #000;
-  max-width: 100%; /* Empêche le débordement */
   border-radius: 8px;
+  max-width: 100%;
+  z-index: 1; /* Assure que le contenu ne passe pas derrière */
 }
 
-/* Style de l'iframe - adapté au mobile */
+/* Style de l'iframe - pleine largeur et hauteur */
 .player-container iframe {
   position: absolute;
   top: 0;
@@ -146,26 +147,35 @@
   width: 100%;
   height: 100%;
   border: none;
-  min-height: 200px; /* Hauteur minimale pour éviter la coupure */
+  min-height: 200px;
 }
-
-/* Correction spécifique pour mobile */
+/* Correction pour mobile */
 @media (max-width: 768px) {
   .player-container {
-    padding-bottom: 65%; /* Augmente légèrement le ratio pour mobile */
-    min-height: 250px; /* Hauteur minimale garantie */
-  }
-  .player-container iframe {
+    padding-bottom: 65%; /* Ratio légèrement plus grand pour mobile */
     min-height: 250px;
-    height: 100% !important; /* Force la hauteur */
+    border-radius: 0; /* Optionnel : enlève les coins arrondis sur mobile */
+  }
+  /* Force le contenu en dessous à ne pas se cacher */
+  div[style*="flex-grow:1"] {
+    padding-bottom: 20px; /* Espace en bas pour éviter le chevauchement */
   }
 }
 
-/* Correction pour iOS (Safari) */
+/* Correction pour iOS */
 @supports (-webkit-touch-callout: none) {
   .player-container iframe {
-    height: calc(100% + 20px) !important; /* Compense les barres d'outils */
+    height: calc(100% + 20px) !important;
   }
+}
+
+/* Assure que le contenu en dessous ne se cache pas */
+.player-container + * {
+  margin-top: 20px; /* Espace après le player */
+  z-index: 2;
+  position: relative;
+}
+
 }
 
   </style>
@@ -192,11 +202,17 @@
 </div>
 
 <!-- Player Container -->
-<div style="flex-grow:1; min-height:300px;">
+<div style="width: 100%; margin: 0 auto; padding: 10px; box-sizing: border-box;">
   <div class="player-container">
     <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
   </div>
 </div>
+
+<!-- Contenu en dessous du player -->
+<div style="position: relative; z-index: 2; margin-top: 20px;">
+  <!-- Ton contenu ici (matches, footer, etc.) -->
+</div>
+
 
 <!-- Contenu SEO optimisé -->
 <div class="seo-content">
