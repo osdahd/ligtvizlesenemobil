@@ -70,6 +70,15 @@ p.lead {
   font-size: 13px;
 }
 
+  /* Conteneur parent de l'iframe (pleine largeur) */
+div[style*="width: 100%"] {
+  width: 100%;
+  margin: 0;
+  padding: 0; /* Supprime le padding pour éviter les débordements */
+  box-sizing: border-box;
+  overflow: hidden; /* Évite les barres de défilement horizontales */
+}
+
 /* --- Styles pour le player (pleine largeur, responsive) --- */
 .player-wrapper {
   width: 100%;
@@ -80,19 +89,18 @@ p.lead {
   box-sizing: border-box;
 }
 
+/* Conteneur du player (ratio 16:9, pleine largeur) */
 .player-container {
   position: relative;
-  width: 100vw; /* Pleine largeur de l'écran */
-  max-width: 100vw;
-  margin: 0 calc(-50vw + 50%); /* Centre tout en utilisant 100vw */
+  width: 100%;
   padding-bottom: 56.25%; /* Ratio 16:9 */
   height: 0;
   overflow: hidden;
   background: #000;
-  border-radius: 0;
-  left: 0;
+  margin: 0;
 }
 
+/* Style de l'iframe (remplit le conteneur) */
 .player-container iframe {
   position: absolute;
   top: 0;
@@ -100,35 +108,26 @@ p.lead {
   width: 100%;
   height: 100%;
   border: none;
-  min-height: 200px;
 }
 
-/* Correction pour mobile */
+/* Correction pour mobile (ajuste le ratio si nécessaire) */
 @media (max-width: 768px) {
   .player-container {
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: -10px;
-    margin-right: -10px;
-    padding-bottom: 65%;
-    border-radius: 0;
-  }
-}
-
-/* Correction pour iOS */
-@supports (-webkit-touch-callout: none) {
-  .player-container iframe {
-    height: calc(100% + 20px) !important;
+    padding-bottom: 65%; /* Ratio légèrement plus grand pour mobile */
   }
 }
 
 /* Espace après le player pour éviter le chevauchement */
 .player-container + * {
   margin-top: 20px;
-  position: relative;
-  z-index: 2;
 }
-
+/* Correction pour iOS */
+@supports (-webkit-touch-callout: none) {
+  .player-container iframe {
+    height: calc(100% + 20px) !important;
+  }
+}
+  
 /* --- Styles pour le menu et boutons --- */
 .menu-btn {
   background: var(--accent);
