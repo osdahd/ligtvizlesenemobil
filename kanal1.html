@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Taraftarium24 Canlı Maç İzle | Bein Sport 1 HD Bedava Kesintisiz - Ligtvizlesene Mobil</title>
   <meta name="description" content="Canlı maç izle bedava HD! Taraftarium24, SelçukSports, Inat TV, Beleş Maç, Justyayın ve tüm spor müsabakalarını kesintisiz izleyin. Bein Sport 1 canlı yayın, şifresiz, mobil uyumlu, yüksek kalite.">
   <meta name="keywords" content="Taraftarium24 canlı maç izle, canlı maç izle bedava, SelçukSports canlı maç izle HD, Inat TV canlı maç girişi, Bein Sport 1 canlı izle, bedava maç izle kesintisiz, Justyayın canlı maç, beleş maç izle, canlı maç izle mobil, canlı maç izle 2025">
@@ -42,27 +42,6 @@
     h1.site-title{font-size:18px;margin:0}
     p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
 
-    /* Style pour le conteneur du player */
-.player-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 pour les vidéos (ajuste si nécessaire) */
-  height: 0;
-  overflow: hidden;
-  margin: 0 auto;
-  border-radius: 8px;
-  background: #000; /* Fond noir pour éviter les espaces vides */
-}
-
-/* Style pour l'iframe */
-.player-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
 
     iframe{
       position:absolute;
@@ -145,6 +124,50 @@
       font-size:16px;
       margin-top:0;
     }
+
+    /* Conteneur du player - responsive et adapté au mobile */
+.player-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Ratio 16:9 (ajuste si nécessaire) */
+  height: 0;
+  overflow: hidden;
+  margin: 0 auto;
+  background: #000;
+  max-width: 100%; /* Empêche le débordement */
+  border-radius: 8px;
+}
+
+/* Style de l'iframe - adapté au mobile */
+.player-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  min-height: 200px; /* Hauteur minimale pour éviter la coupure */
+}
+
+/* Correction spécifique pour mobile */
+@media (max-width: 768px) {
+  .player-container {
+    padding-bottom: 65%; /* Augmente légèrement le ratio pour mobile */
+    min-height: 250px; /* Hauteur minimale garantie */
+  }
+  .player-container iframe {
+    min-height: 250px;
+    height: 100% !important; /* Force la hauteur */
+  }
+}
+
+/* Correction pour iOS (Safari) */
+@supports (-webkit-touch-callout: none) {
+  .player-container iframe {
+    height: calc(100% + 20px) !important; /* Compense les barres d'outils */
+  }
+}
+
   </style>
 </head>
 <body>
