@@ -7,7 +7,6 @@
   <meta name="description" content="Canlı maç izle bedava HD! Taraftarium24, SelçukSports, Inat TV, Beleş Maç, Justyayın ve tüm spor müsabakalarını kesintisiz izleyin. Bein Sport 1 canlı yayın, şifresiz, mobil uyumlu, yüksek kalite.">
   <meta name="keywords" content="Taraftarium24 canlı maç izle, canlı maç izle bedava, SelçukSports canlı maç izle HD, Inat TV canlı maç girişi, Bein Sport 1 canlı izle, bedava maç izle kesintisiz, Justyayın canlı maç, beleş maç izle, canlı maç izle mobil, canlı maç izle 2025">
 
-  <!-- Styles copiés depuis la page principale pour cohérence -->
   <style>
     :root{
       --bg:#0f1518;
@@ -48,6 +47,7 @@
       position:relative;
       width:100%;
       background:#000;
+      min-height:250px;
     }
     iframe{
       position:absolute;
@@ -57,7 +57,6 @@
       border:none;
     }
 
-    /* Menu latéral et bouton */
     .menu-btn{
       background: var(--accent);
       color:#111;
@@ -118,7 +117,6 @@
       background:#0b0f11;
     }
 
-    /* SEO : Ajout d'un texte optimisé sous le player */
     .seo-content{
       padding:12px;
       background:var(--card);
@@ -152,8 +150,12 @@
   <a href="https://t.me/ligtvizlesene1" class="menu-link telegram" target="_blank">Telegram</a>
   <a href="https://discord.com/invite/4X6Bg8xNgG" class="menu-link discord" target="_blank">Discord</a>
 </div>
-<div class="player-container">
-  <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
+
+<!-- Player Container -->
+<div style="flex-grow:1; min-height:250px;">
+  <div class="player-container">
+    <iframe src="https://www.bosstv27.com/channel?id=yayinzirve" allowfullscreen></iframe>
+  </div>
 </div>
 
 <!-- Contenu SEO optimisé -->
