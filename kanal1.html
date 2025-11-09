@@ -196,5 +196,30 @@
     if(!menu.contains(e.target) && e.target !== openBtn){ menu.classList.remove('open'); }
   });
 </script>
+
+  <script>
+const menu = document.getElementById('sideMenu');
+const openBtn = document.getElementById('openMenuBtn');
+const closeBtn = document.getElementById('closeMenuBtn');
+
+openBtn.addEventListener('click', () => {
+  menu.classList.add('open');
+  document.body.style.overflow = 'hidden'; // ❗ empêche le scroll + la barre droite
+});
+
+closeBtn.addEventListener('click', () => {
+  menu.classList.remove('open');
+  document.body.style.overflow = ''; // restaure le scroll normal
+});
+
+// Fermer si clic à l’extérieur
+window.addEventListener('click', (e) => {
+  if (!menu.contains(e.target) && e.target !== openBtn) {
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+  
 </body>
 </html>
