@@ -175,22 +175,24 @@
       }
       .menu-btn:hover { background: #ff9c33; }
       /* --- Menu latéral --- */
-      .side-menu {
-        position: fixed;
-        top: 0;
-        right: -250px; /* départ hors écran */
-        width: 250px;
-        height: 100%;
-        background: #1e2327;
-        box-shadow: -4px 0 12px rgba(0,0,0,0.5);
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        transition: right 0.3s ease;
-        z-index: 9999;
-      }
-      .side-menu.open { right: 0; }
+     .side-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100%;
+  background: #1e2327;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.5);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: right 0.3s ease;
+  z-index: 9999;
+}
+.side-menu.open {
+  right: 0;
+}
       /* Bouton de fermeture */
       .close-btn {
         align-self: flex-end;
@@ -424,6 +426,7 @@
     </script>
   </body>
 </html>
+
 
 
 
