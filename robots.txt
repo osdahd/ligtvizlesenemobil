@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://m.ligtvizlesene54.pro/sitemap.xml
+Sitemap: http://www.mobilmacizle.it/sitemap.xml
