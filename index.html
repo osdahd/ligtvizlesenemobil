@@ -15,7 +15,9 @@
     <meta property="og:url" content="http://www.mobilmacizle.it">
     <meta name="monetag" content="2d9a0625f85d29b48a89bae7649c02ab">
 
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,800;0,900;1,700;1,800&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <style>
       :root{
         --bg:#0f1518;
@@ -227,6 +229,243 @@
       }
     </style>
 
+    <style>
+.sgc-banner{
+  --purple:#8b3dff; --pink:#ff2fa0; --orange:#ff9a00; --yellow:#ffd31a;
+  container-type:inline-size;
+  position:relative; width:100%; max-width:1960px; margin:0 auto;
+  aspect-ratio:1960/800; overflow:hidden; border-radius:1.2cqw;
+  font-family:"Poppins",system-ui,sans-serif; color:#fff;
+  background:
+    radial-gradient(40% 60% at 72% 30%, rgba(60,90,255,.45), transparent 70%),
+    radial-gradient(35% 50% at 95% 95%, rgba(255,120,40,.35), transparent 70%),
+    radial-gradient(30% 45% at 10% 20%, rgba(140,60,255,.30), transparent 70%),
+    linear-gradient(180deg,#0b0b22 0%,#070716 60%,#120a1c 100%);
+  isolation:isolate;
+}
+.sgc-banner *{box-sizing:border-box}
+.sgc-banner svg{display:block}
+
+/* ---------- entrées ---------- */
+.sgc-in{animation:sgcUp .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes sgcUp{from{opacity:0;transform:translateY(2cqw) scale(.96)}to{opacity:1;transform:none}}
+@keyframes sgcLeft{from{opacity:0;transform:translateX(-4cqw) rotate(-3deg)}to{opacity:1;transform:rotate(-3deg)}}
+@keyframes sgcPop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+
+/* ---------- particules ---------- */
+.sgc-particles span{
+  position:absolute;bottom:-2cqw;left:var(--x);width:var(--s,.35cqw);height:var(--s,.35cqw);
+  border-radius:50%;background:var(--c,#ffcf6b);box-shadow:0 0 .8cqw var(--c,#ffcf6b);
+  opacity:0;animation:sgcRise var(--t,9s) linear infinite;animation-delay:var(--dl,0s);z-index:0
+}
+@keyframes sgcRise{0%{opacity:0;transform:translateY(0)}10%{opacity:.9}90%{opacity:.6}100%{opacity:0;transform:translateY(-44cqw) translateX(3cqw)}}
+
+/* ---------- TV ---------- */
+.sgc-tv{position:absolute;left:51cqw;top:-1.5cqw;width:31cqw;height:20cqw;z-index:1;
+  transform:perspective(60cqw) rotateY(-14deg);transform-origin:left center}
+.sgc-tv-frame{position:absolute;inset:0;border:.5cqw solid #111;border-radius:.5cqw;overflow:hidden;
+  background:#000;box-shadow:0 0 6cqw rgba(70,110,255,.6),0 0 1.5cqw rgba(70,110,255,.8)}
+.sgc-tv-stand{position:absolute;left:20%;right:20%;bottom:-2.6cqw;height:.6cqw;border-radius:1cqw;
+  background:linear-gradient(90deg,transparent,#3d5cff,transparent);filter:blur(.15cqw);
+  animation:sgcGlow 3s ease-in-out infinite}
+.sgc-stadium{position:absolute;inset:0;
+  background:
+    radial-gradient(8% 10% at 12% 10%,#fff,transparent 70%),
+    radial-gradient(8% 10% at 40% 6%,#dfe8ff,transparent 70%),
+    radial-gradient(60% 40% at 30% 0%,rgba(120,160,255,.6),transparent 70%),
+    linear-gradient(180deg,#0d1640 0%,#1a2a66 35%,#2b4c3a 52%,#1f7a2e 60%,#0f5c1e 100%)}
+.sgc-stadium::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 8%,transparent 8% 16%);
+  transform:perspective(20cqw) rotateX(40deg);transform-origin:bottom}
+.sgc-crowd{position:absolute;left:0;right:0;top:32%;height:18%;
+  background:radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 1.5px) 0 0/ .45cqw .45cqw;
+  opacity:.5;animation:sgcFlicker 1.6s steps(2) infinite}
+@keyframes sgcFlicker{50%{opacity:.25}}
+.sgc-panels{position:absolute;top:0;bottom:0;right:0;width:52%;display:flex}
+.sgc-panels i{flex:1;margin-left:.25cqw;transform:skewX(-6deg);background-size:200% 200%;
+  animation:sgcPan 8s ease-in-out infinite alternate;position:relative;overflow:hidden}
+.sgc-panels i::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);
+  transform:translateX(-120%);animation:sgcSweep 5s ease-in-out infinite;animation-delay:var(--dl)}
+.sgc-panels i:nth-child(1){background-image:linear-gradient(160deg,#1a2738,#3e5f7d,#0a1018);--dl:0s}
+.sgc-panels i:nth-child(2){background-image:linear-gradient(160deg,#ff7a1a,#7a1d0d,#1b0b07);--dl:.6s}
+.sgc-panels i:nth-child(3){background-image:linear-gradient(160deg,#5a0f2c,#c9264b,#200410);--dl:1.2s}
+.sgc-panels i:nth-child(4){background-image:linear-gradient(160deg,#1d2e7a,#6a3bd6,#ff8a3a);--dl:1.8s}
+@keyframes sgcPan{to{background-position:100% 100%}}
+@keyframes sgcSweep{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.sgc-tv-ball{position:absolute;left:30%;bottom:6%;width:22%;aspect-ratio:1;
+  filter:drop-shadow(0 .6cqw .6cqw rgba(0,0,0,.6));animation:sgcBounce 2.4s ease-in-out infinite}
+.sgc-tv-ball svg{width:100%;height:100%;animation:sgcSpin 6s linear infinite}
+@keyframes sgcSpin{to{transform:rotate(360deg)}}
+@keyframes sgcBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8%)}}
+
+/* ---------- traînées lumineuses ---------- */
+.sgc-streaks{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.sgc-streaks path{fill:none;stroke-linecap:round;stroke-dasharray:30 70;animation:sgcDash 4s linear infinite}
+.sgc-streaks path:nth-child(2){animation-duration:5.5s;animation-delay:-1s}
+.sgc-streaks path:nth-child(3){animation-duration:3.5s;animation-delay:-2s}
+@keyframes sgcDash{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+
+/* ---------- colonne gauche ---------- */
+.sgc-logo{position:absolute;left:3cqw;top:2cqw;display:flex;align-items:center;gap:1.2cqw;z-index:5}
+.sgc-logo-icon{width:9.5cqw;height:9.5cqw;animation:sgcPop .9s cubic-bezier(.2,.8,.2,1) both,sgcBreath 3s ease-in-out 1s infinite;
+  filter:drop-shadow(0 0 1.2cqw rgba(255,47,160,.55))}
+@keyframes sgcBreath{50%{transform:scale(1.04);filter:drop-shadow(0 0 2cqw rgba(255,140,40,.7))}}
+.sgc-logo-icon .w{opacity:.2;animation:sgcWave 1.8s ease-in-out infinite}
+.sgc-logo-icon .w2{animation-delay:.3s}
+@keyframes sgcWave{30%,60%{opacity:1}}
+.sgc-title{font-weight:800;font-size:5.3cqw;line-height:1;letter-spacing:-.05em;margin:0}
+.sgc-title b{font-weight:800;background:linear-gradient(180deg,#ffe14d,#ff9a00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sgc-title span{text-shadow:0 0 1.5cqw rgba(255,255,255,.25)}
+.sgc-tagline{font-style:italic;font-weight:700;font-size:1.55cqw;margin:.5cqw 0 0 .3cqw;transform:rotate(-1.5deg);transform-origin:left}
+.sgc-underline{height:.25cqw;width:33cqw;margin-top:.8cqw;border-radius:1cqw;
+  background:linear-gradient(90deg,transparent,#ff9a00 30%,#ffd31a 60%,transparent);
+  background-size:200% 100%;animation:sgcSlide 3s linear infinite}
+@keyframes sgcSlide{to{background-position:-200% 0}}
+
+.sgc-head{position:absolute;left:2.5cqw;top:13.2cqw;z-index:5}
+.sgc-line1{display:inline-block;position:relative;font-weight:800;font-size:3.7cqw;line-height:1.15;
+  padding:.4cqw 2cqw .6cqw 1.2cqw;transform:rotate(-3deg);animation:sgcLeft .8s cubic-bezier(.2,.8,.2,1) .25s both}
+.sgc-line1::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(90,40,255,0),#6d2cff 12%,#b02cff 70%,rgba(220,40,255,0));
+  clip-path:polygon(2% 18%,40% 6%,98% 0,100% 55%,96% 100%,30% 92%,0 100%);
+  box-shadow:0 0 3cqw #8b3dff;filter:drop-shadow(0 0 1.2cqw rgba(160,60,255,.8));
+  transform-origin:left;animation:sgcBrush .7s ease-out .2s both}
+@keyframes sgcBrush{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.sgc-line2{display:block;font-weight:900;font-style:italic;font-size:5cqw;line-height:1.05;margin:.2cqw 0 0 1.5cqw;
+  transform:rotate(-3deg);letter-spacing:-.02em;
+  background:linear-gradient(100deg,#ffe34a 0%,#ffb300 35%,#fff6b0 50%,#ff9500 65%,#ffcc00 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 .3cqw 0 #b54600) drop-shadow(0 0 1.5cqw rgba(255,150,0,.55));
+  animation:sgcLeft .8s cubic-bezier(.2,.8,.2,1) .45s both,sgcShine 3.5s linear 1.3s infinite}
+@keyframes sgcShine{from{background-position:100% 0}to{background-position:-150% 0}}
+
+.sgc-features{position:absolute;left:3cqw;top:23.6cqw;display:flex;z-index:5}
+.sgc-feat{width:10cqw;text-align:center;position:relative}
+.sgc-feat + .sgc-feat::before{content:"";position:absolute;left:0;top:.5cqw;height:7cqw;width:1px;
+  background:linear-gradient(transparent,rgba(255,255,255,.2),transparent)}
+.sgc-feat-ic{width:5cqw;height:5cqw;margin:0 auto .5cqw;border-radius:50%;display:grid;place-items:center;
+  color:var(--c);border:.22cqw solid var(--c);background:radial-gradient(circle,rgba(0,0,0,.2),rgba(0,0,0,.6));
+  box-shadow:0 0 1cqw var(--c),inset 0 0 1cqw var(--c);
+  animation:sgcPop .7s cubic-bezier(.2,.8,.2,1) both,sgcNeon 2.6s ease-in-out infinite;
+  animation-delay:var(--d),calc(var(--d) + .8s)}
+.sgc-feat-ic svg{width:55%;height:55%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@keyframes sgcNeon{50%{box-shadow:0 0 2.2cqw var(--c),inset 0 0 1.4cqw var(--c);transform:translateY(-.3cqw)}}
+.sgc-feat p{margin:0;font-weight:800;font-size:1.2cqw;line-height:1.15}
+.sgc-feat small{display:block;font-weight:600;font-size:.9cqw;opacity:.85;margin-top:.2cqw}
+
+.sgc-cta-row{position:absolute;left:3cqw;top:32.6cqw;display:flex;align-items:center;gap:1.3cqw;z-index:6}
+.sgc-cta{position:relative;display:flex;align-items:center;gap:1.2cqw;text-decoration:none;color:#1a0d00;
+  font-weight:900;font-size:2.3cqw;letter-spacing:-.01em;padding:.9cqw 2.6cqw;border-radius:5cqw;
+  background:linear-gradient(180deg,#ffe866,#ffc400 55%,#ff9a00);
+  box-shadow:0 .35cqw 0 #c25d00,0 0 2.5cqw rgba(255,190,0,.6);
+  transform:rotate(-2deg);overflow:hidden;
+  animation:sgcPop .7s cubic-bezier(.2,.8,.2,1) 1.4s both,sgcPulse 1.8s ease-in-out 2.2s infinite;transition:filter .2s}
+.sgc-cta:hover{filter:brightness(1.08)}
+.sgc-cta::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-40%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);
+  animation:sgcGleam 2.8s ease-in-out 2s infinite}
+@keyframes sgcGleam{0%,55%{left:-40%}100%{left:130%}}
+@keyframes sgcPulse{50%{transform:rotate(-2deg) scale(1.05);box-shadow:0 .35cqw 0 #c25d00,0 0 4cqw rgba(255,200,0,.85)}}
+.sgc-cta svg{width:2.2cqw;height:2.2cqw}
+.sgc-sparks{position:absolute;inset:-1.4cqw -2cqw;pointer-events:none}
+.sgc-sparks i{position:absolute;width:1.6cqw;height:.28cqw;border-radius:1cqw;background:#ffd31a;
+  box-shadow:0 0 .6cqw #ffb000;animation:sgcSpark 1.8s ease-in-out 2.2s infinite}
+.sgc-sparks i:nth-child(1){left:0;top:15%;transform:rotate(35deg)}
+.sgc-sparks i:nth-child(2){left:-.5cqw;top:55%}
+.sgc-sparks i:nth-child(3){right:0;top:5%;transform:rotate(-35deg)}
+.sgc-sparks i:nth-child(4){right:-.6cqw;top:45%}
+.sgc-sparks i:nth-child(5){right:0;bottom:5%;transform:rotate(35deg)}
+@keyframes sgcSpark{0%,100%{opacity:.2}50%{opacity:1}}
+.sgc-cta-wrap{position:relative}
+
+.sgc-store{display:flex;align-items:center;gap:.7cqw;text-decoration:none;color:#fff;background:#000;
+  border:1px solid rgba(255,255,255,.55);border-radius:.6cqw;padding:.55cqw 1.1cqw;min-width:11.5cqw;
+  transition:transform .2s,box-shadow .2s}
+.sgc-store:hover{transform:translateY(-.2cqw);box-shadow:0 0 1.5cqw rgba(255,255,255,.25)}
+.sgc-store svg{width:2cqw;height:2cqw;flex:none}
+.sgc-store span{display:block;font-size:.7cqw;font-weight:600;line-height:1}
+.sgc-store strong{display:block;font-size:1.35cqw;font-weight:600;line-height:1.15;letter-spacing:-.02em}
+
+/* ---------- téléphone ---------- */
+.sgc-phone-wrap{position:absolute;left:63.5cqw;top:6.5cqw;width:20.5cqw;z-index:4;
+  animation:sgcPhoneIn 1.1s cubic-bezier(.2,.8,.2,1) .5s both}
+@keyframes sgcPhoneIn{from{opacity:0;transform:translateY(10cqw) rotate(14deg)}to{opacity:1;transform:none}}
+.sgc-phone{height:37cqw;border-radius:3cqw;padding:.55cqw;transform:rotate(9deg);
+  background:linear-gradient(135deg,#d9b46a,#4a3a20 30%,#1a1a1a 60%,#c9a35a);
+  box-shadow:0 2cqw 4cqw rgba(0,0,0,.7),0 0 3cqw rgba(110,80,255,.35);
+  animation:sgcFloat 5s ease-in-out 1.6s infinite}
+@keyframes sgcFloat{50%{transform:rotate(8deg) translateY(-.9cqw)}}
+.sgc-screen{position:relative;height:100%;border-radius:2.5cqw;overflow:hidden;
+  background:linear-gradient(180deg,#0e1430,#0a0d22 60%,#0c0a1c);padding:2.6cqw 1cqw 0}
+.sgc-notch{position:absolute;top:.5cqw;left:50%;transform:translateX(-50%);width:6.5cqw;height:1.4cqw;background:#000;border-radius:1cqw}
+.sgc-ph-head{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:1cqw}
+.sgc-ph-head .m{width:1.2cqw;display:grid;gap:.22cqw}
+.sgc-ph-head .m i{height:.14cqw;background:#fff;border-radius:1px}
+.sgc-ph-logo{display:flex;align-items:center;gap:.3cqw}
+.sgc-ph-logo svg{width:1.7cqw;height:1.7cqw}
+.sgc-ph-logo b{color:#ffb000;font-weight:800}
+.sgc-ph-head > svg{width:1.1cqw;height:1.1cqw;fill:none;stroke:#fff;stroke-width:2.5}
+.sgc-ph-hero{position:relative;height:8.5cqw;margin-top:.9cqw;border-radius:.7cqw;overflow:hidden}
+.sgc-ph-hero .sgc-tv-ball{left:auto;right:10%;bottom:4%;width:30%}
+.sgc-ph-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:.4cqw;margin-top:.9cqw}
+.sgc-ph-cats div{background:linear-gradient(180deg,#1b2350,#121838);border:1px solid rgba(255,255,255,.08);
+  border-radius:.5cqw;padding:.6cqw .1cqw .5cqw;text-align:center;font-size:.6cqw;font-weight:700;
+  animation:sgcUp .6s ease-out both;animation-delay:var(--d)}
+.sgc-ph-cats svg{width:1.7cqw;height:1.7cqw;margin:0 auto .3cqw;fill:none;stroke:var(--c);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 .3cqw var(--c))}
+.sgc-ph-pop{display:flex;justify-content:space-between;align-items:center;margin:1cqw 0 .5cqw;font-weight:800;font-size:1cqw}
+.sgc-ph-row{overflow:hidden;margin:0 -1cqw;padding-left:1cqw}
+.sgc-ph-track{display:flex;gap:.4cqw;width:max-content;animation:sgcScroll 14s linear infinite}
+@keyframes sgcScroll{to{transform:translateX(-50%)}}
+.sgc-card{position:relative;width:4.2cqw;height:6.6cqw;border-radius:.45cqw;overflow:hidden;flex:none;background:var(--g)}
+.sgc-card::before{content:"";position:absolute;left:20%;top:18%;width:60%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.55),transparent 65%)}
+.sgc-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.75));}
+.sgc-card i{position:absolute;left:.4cqw;bottom:.4cqw;width:0;height:0;z-index:1;
+  border-left:.6cqw solid #fff;border-top:.35cqw solid transparent;border-bottom:.35cqw solid transparent}
+
+/* ---------- slogan manuscrit ---------- */
+.sgc-script{position:absolute;right:1.8cqw;top:2.5cqw;z-index:5;font-family:"Caveat",cursive;font-weight:700;
+  font-size:3.3cqw;line-height:.95;text-align:center;transform:rotate(-14deg);
+  text-shadow:0 0 1.2cqw rgba(255,255,255,.35)}
+.sgc-script span{display:block;opacity:0;animation:sgcWrite .6s ease-out both}
+.sgc-script span:nth-child(1){animation-delay:1.6s}
+.sgc-script span:nth-child(2){animation-delay:1.85s}
+.sgc-script span:nth-child(3){animation-delay:2.1s}
+.sgc-script span:nth-child(4){animation-delay:2.35s}
+@keyframes sgcWrite{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+.sgc-script svg{width:9cqw;margin:.3cqw auto 0}
+.sgc-script svg path{stroke-dasharray:120;stroke-dashoffset:120;animation:sgcDraw .8s ease-out 2.6s forwards}
+@keyframes sgcDraw{to{stroke-dashoffset:0}}
+@keyframes sgcGlow{50%{opacity:.5}}
+
+/* ---------- accessibilité ---------- */
+@media (prefers-reduced-motion:reduce){
+  .sgc-banner *,.sgc-banner *::before,.sgc-banner *::after{animation:none!important}
+  .sgc-script span{opacity:1}
+  .sgc-script svg path{stroke-dashoffset:0}
+}
+
+/* ===== Index sayfasına uyarlama (680px container / mobil) ===== */
+.sgc-wrap{margin:0 0 12px}
+.sgc-banner{cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.05)}
+@container (max-width:760px){
+  .sgc-features{display:none}
+  .sgc-store{display:none}
+  .sgc-tagline{font-size:2cqw}
+  .sgc-title{font-size:5.6cqw}
+  .sgc-head{top:13cqw}
+  .sgc-line1{font-size:3.9cqw}
+  .sgc-line2{font-size:5.3cqw}
+  .sgc-cta-row{top:28.6cqw}
+  .sgc-cta{font-size:3.1cqw;padding:1cqw 3.4cqw;gap:1.4cqw}
+  .sgc-cta svg{width:3cqw;height:3cqw}
+  .sgc-script{font-size:4cqw}
+}
+</style>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6E4FSN8YYD"></script>
     <script>
@@ -247,6 +486,175 @@
         </div>
         <div style="margin-left:auto" class="header-actions" aria-hidden="true"></div>
       </header>
+
+      <div class="sgc-wrap">
+<section class="sgc-banner" id="sgcBanner" role="link" tabindex="0" aria-label="SmartGoCast – Sevdiğin içerikler tek bir uygulamada">
+
+  <!-- dégradé du logo, réutilisé partout -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="sgcLogoG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#6c3cff"/><stop offset=".55" stop-color="#ff2fa0"/><stop offset="1" stop-color="#ffb000"/>
+      </linearGradient>
+      <symbol id="sgcBall" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#f5f5f7" stroke="#1b1b2b" stroke-width="2"/>
+        <polygon points="50,33 66,45 60,64 40,64 34,45" fill="#1b1b2b"/>
+        <g stroke="#1b1b2b" stroke-width="2.2" fill="none">
+          <path d="M50 33V16M66 45l16-6M60 64l10 14M40 64l-10 14M34 45l-16-6"/>
+        </g>
+        <g fill="#1b1b2b">
+          <polygon points="40,4 60,4 58,16 42,16"/><polygon points="88,30 97,44 84,48 80,38"/>
+          <polygon points="76,82 66,94 64,84 70,76"/><polygon points="24,82 34,94 36,84 30,76"/>
+          <polygon points="12,30 3,44 16,48 20,38"/>
+        </g>
+      </symbol>
+      <linearGradient id="sgcStreak" x1="0" x2="1">
+        <stop offset="0" stop-color="#ff2fa0" stop-opacity="0"/><stop offset=".5" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ffd31a"/>
+      </linearGradient>
+      <linearGradient id="sgcStreak2" x1="0" x2="1">
+        <stop offset="0" stop-color="#3d5cff" stop-opacity="0"/><stop offset="1" stop-color="#b44dff"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- particules -->
+  <div class="sgc-particles" aria-hidden="true">
+    <span style="--x:8%;--t:10s;--dl:0s"></span>
+    <span style="--x:22%;--t:12s;--dl:3s;--c:#b77bff"></span>
+    <span style="--x:35%;--t:9s;--dl:5s"></span>
+    <span style="--x:48%;--t:11s;--dl:1s;--c:#6fa0ff"></span>
+    <span style="--x:58%;--t:13s;--dl:6s;--s:.25cqw"></span>
+    <span style="--x:70%;--t:10s;--dl:2s;--c:#ff7ac8"></span>
+    <span style="--x:86%;--t:9s;--dl:4s"></span>
+    <span style="--x:93%;--t:12s;--dl:7s;--c:#ffa64d;--s:.5cqw"></span>
+  </div>
+
+  <!-- TV -->
+  <div class="sgc-tv" aria-hidden="true">
+    <div class="sgc-tv-frame">
+      <div class="sgc-stadium"><div class="sgc-crowd"></div></div>
+      <div class="sgc-panels"><i></i><i></i><i></i><i></i></div>
+      <div class="sgc-tv-ball"><svg viewBox="0 0 100 100"><use href="#sgcBall"/></svg></div>
+    </div>
+    <div class="sgc-tv-stand"></div>
+  </div>
+
+  <!-- traînées lumineuses -->
+  <svg class="sgc-streaks" viewBox="0 0 1960 800" preserveAspectRatio="none" aria-hidden="true">
+    <path pathLength="100" d="M820 760 C1050 700 1150 640 1290 520" stroke="url(#sgcStreak)" stroke-width="5"/>
+    <path pathLength="100" d="M700 790 C1000 740 1180 690 1300 600" stroke="url(#sgcStreak2)" stroke-width="3"/>
+    <path pathLength="100" d="M1100 800 C1200 720 1260 660 1320 560" stroke="url(#sgcStreak)" stroke-width="2"/>
+  </svg>
+
+  <!-- logo -->
+  <div class="sgc-logo">
+    <svg class="sgc-logo-icon" viewBox="0 0 120 120" aria-hidden="true">
+      <path d="M20 26 Q20 10 36 18 L98 52 Q110 60 98 68 L36 104 Q20 112 20 96 Z" fill="url(#sgcLogoG)"/>
+      <path d="M45 44 L77 60 L45 77 Z" fill="#fff"/>
+      <g fill="none" stroke="#ffb000" stroke-width="7" stroke-linecap="round">
+        <path class="w" d="M86 22 a12 12 0 0 1 12 12"/>
+        <path class="w w2" d="M86 7 a27 27 0 0 1 27 27"/>
+      </g>
+    </svg>
+    <div class="sgc-in" style="--d:.2s">
+      <h2 class="sgc-title"><span>SmartGo</span><b>Cast</b></h2>
+      <p class="sgc-tagline">Telefonundan Yayına, Eğlence Her Yerde!</p>
+      <div class="sgc-underline"></div>
+    </div>
+  </div>
+
+  <!-- accroche -->
+  <div class="sgc-head">
+    <span class="sgc-line1">Sevdiğin İçerikler</span>
+    <span class="sgc-line2">Tek Bir Uygulamada!</span>
+  </div>
+
+  <!-- fonctionnalités -->
+  <div class="sgc-features">
+    <div class="sgc-feat"><div class="sgc-feat-ic" style="--c:#e04dff;--d:.8s"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M10 8l4 2-4 2z" fill="currentColor"/><path d="M8 20h8M12 16v4"/></svg></div><p>Futbol<br>Maçları</p></div>
+    <div class="sgc-feat"><div class="sgc-feat-ic" style="--c:#ffc21a;--d:.95s"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3.5 9l1.3-4.5h15L21 9M9 4.5L7.5 9M14 4.5L12.5 9M19 4.5L17.5 9"/><path d="M10.5 12.5l4 2-4 2z" fill="currentColor"/></svg></div><p>Dizi &amp; Film</p></div>
+    <div class="sgc-feat"><div class="sgc-feat-ic" style="--c:#22d8ff;--d:1.1s"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/><text x="12" y="16.6" font-size="6.5" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none" font-family="Poppins,sans-serif">TV</text></svg></div><p>TV Kanalları</p></div>
+    <div class="sgc-feat"><div class="sgc-feat-ic" style="--c:#2cff8f;--d:1.25s"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></div><p>Yüksek Kalite</p><small>HD / Full HD</small></div>
+    <div class="sgc-feat"><div class="sgc-feat-ic" style="--c:#ff4dd2;--d:1.4s"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3.2 3 3.2 15 0 18M12 3c-3.2 3-3.2 15 0 18"/></svg></div><p>Her Yerde<br>İzle</p></div>
+  </div>
+
+  <!-- CTA + stores  (remplacez les href par vos liens) -->
+  <div class="sgc-cta-row">
+    <div class="sgc-cta-wrap">
+      <div class="sgc-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <a class="sgc-cta" href="https://play.google.com/store/apps/details?id=com.y6devapp.smartgocast" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a0d00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 10l6 6 6-6M4 20h16"/></svg>
+        HEMEN İNDİR
+      </a>
+    </div>
+    <a class="sgc-store sgc-in" style="--d:1.6s" href="https://play.google.com/store/apps/details?id=com.y6devapp.smartgocast" target="_blank" rel="noopener" aria-label="Google Play'den edinin">
+      <svg viewBox="0 0 24 24"><path d="M4 2.5l11 9.5L4 21.5z" fill="#00d26a"/><path d="M4 2.5l14.5 8L15 12z" fill="#00b4ff"/><path d="M4 21.5l14.5-8L15 12z" fill="#ff3d57"/><path d="M15 12l3.5-1.5 2.5 1.5-2.5 1.5z" fill="#ffc400"/></svg>
+      <div><span>GET IT ON</span><strong>Google Play</strong></div>
+    </a>
+  </div>
+
+  <!-- téléphone -->
+  <div class="sgc-phone-wrap" aria-hidden="true">
+    <div class="sgc-phone">
+      <div class="sgc-screen">
+        <div class="sgc-notch"></div>
+        <div class="sgc-ph-head">
+          <div class="m"><i></i><i></i><i></i></div>
+          <div class="sgc-ph-logo">
+            <svg viewBox="0 0 120 120"><path d="M20 26 Q20 10 36 18 L98 52 Q110 60 98 68 L36 104 Q20 112 20 96 Z" fill="url(#sgcLogoG)"/><path d="M45 44 L77 60 L45 77 Z" fill="#fff"/></svg>
+            <span>SmartGo<b>Cast</b></span>
+          </div>
+          <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+        </div>
+        <div class="sgc-ph-hero">
+          <div class="sgc-stadium"><div class="sgc-crowd"></div></div>
+          <div class="sgc-tv-ball"><svg viewBox="0 0 100 100"><use href="#sgcBall"/></svg></div>
+        </div>
+        <div class="sgc-ph-cats">
+          <div style="--c:#e04dff;--d:1.4s"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></svg>TV Kanalları</div>
+          <div style="--c:#ff4d8d;--d:1.5s"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="7.5" r="1.8"/><circle cx="12" cy="16.5" r="1.8"/><circle cx="7.5" cy="12" r="1.8"/><circle cx="16.5" cy="12" r="1.8"/></svg>Filmler</div>
+          <div style="--c:#8d7bff;--d:1.6s"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3.5 9l1.3-4.5h15L21 9"/><path d="M10.5 12.5l4 2-4 2z"/></svg>Diziler</div>
+          <div style="--c:#22e3ff;--d:1.7s"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/></svg>Spor</div>
+        </div>
+        <div class="sgc-ph-pop"><span>Popüler</span><span>›</span></div>
+        <div class="sgc-ph-row">
+          <div class="sgc-ph-track">
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#3e5f7d,#14202c)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#ff8a2a,#5a1608)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#d62a52,#2a0614)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#5b7cff,#141a4a)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#2cc98a,#0b2e22)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#b04dff,#22093d)"><i></i></div>
+            <!-- duplicata pour une boucle continue -->
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#3e5f7d,#14202c)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#ff8a2a,#5a1608)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#d62a52,#2a0614)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#5b7cff,#141a4a)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#2cc98a,#0b2e22)"><i></i></div>
+            <div class="sgc-card" style="--g:linear-gradient(160deg,#b04dff,#22093d)"><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- slogan -->
+  <div class="sgc-script" aria-hidden="true">
+    <span>Dilediğin</span><span>Zaman</span><span>Dilediğin</span><span>Yerde</span>
+    <svg viewBox="0 0 120 20"><path d="M4 16 Q60 2 116 6" fill="none" stroke="#ffc400" stroke-width="4" stroke-linecap="round"/></svg>
+  </div>
+</section>
+<script>
+  (function(){
+    var b=document.getElementById('sgcBanner');
+    if(!b) return;
+    var url='https://play.google.com/store/apps/details?id=com.y6devapp.smartgocast';
+    function go(){ window.open(url,'_blank','noopener'); }
+    b.addEventListener('click',function(e){ if(!e.target.closest('a')) go(); });
+    b.addEventListener('keydown',function(e){ if(e.key==='Enter'){ go(); } });
+  })();
+</script>
+</div>
 
 <script src="https://pl31429646.profitableratecpmnetwork.com/31/70/d3/3170d379c17fca9261075b9a4a5fa591.js"></script>
 
@@ -272,17 +680,6 @@
         </div>
 
         <!-- Match 1 -->
-            
-
-
-
-
-  
-        
-
-
-        
-
           <article class="match" itemscope itemtype="https://schema.org/SportsEvent">
           <div class="m-head" role="button" tabindex="0" aria-expanded="false">
             <div class="left">
@@ -315,16 +712,7 @@
             </div>
           </div>
         </article>
-
-
-
-        
- 
-
-        
       </section>
-
-
 
       <!-- Section SEO -->
       <section class="seo-text">
@@ -393,67 +781,3 @@
     
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
