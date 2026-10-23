@@ -853,6 +853,55 @@
 
     gtag('config', 'G-371528584');
   </script>
+
+
+
+    <script>
+//<![CDATA[
+(function () {
+  var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
+  if (!('serviceWorker' in navigator)) return;
+
+  function b64uToU8(s) {
+    s = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    var r = atob(s), o = new Uint8Array(r.length);
+    for (var i = 0; i < r.length; i++) o[i] = r.charCodeAt(i);
+    return o;
+  }
+
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function () { return navigator.serviceWorker.ready; })
+      .then(function (reg) {
+        if (!('PushManager' in window) || !('Notification' in window)) return;
+        return reg.pushManager.getSubscription().then(function (sub) {
+          if (sub || Notification.permission === 'denied') return;
+          var b = document.createElement('button');
+          b.textContent = '🔔 Yeni adres bildirimi al';
+          b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:9999;padding:10px 14px;border:0;border-radius:24px;background:#1a73e8;color:#fff;font:14px sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+          b.onclick = function () {
+            Notification.requestPermission().then(function (p) {
+              if (p !== 'granted') return;
+              return reg.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: b64uToU8(PUBLIC_KEY)
+              }).then(function (s) {
+                return fetch('/push/subscribe', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(s.toJSON())
+                });
+              }).then(function () { b.remove(); });
+            });
+          };
+          document.body.appendChild(b);
+        });
+      });
+  });
+})();
+//]]>
+</script>
     
   </body>
 </html>
