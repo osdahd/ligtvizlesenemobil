@@ -854,7 +854,16 @@
     gtag('config', 'G-371528584');
   </script>
 
-
+(function () {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#c00;color:#fff;font:12px sans-serif;padding:6px';
+  d.textContent = 'push script çalıştı | SW:' + ('serviceWorker' in navigator) +
+    ' Push:' + ('PushManager' in window) +
+    ' Notif:' + ('Notification' in window) +
+    ' ' + location.protocol;
+  function add() { document.body.appendChild(d); }
+  if (document.body) add(); else document.addEventListener('DOMContentLoaded', add);
+})();
 
     <script>
 //<![CDATA[
