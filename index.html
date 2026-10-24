@@ -856,6 +856,12 @@
 
 
     <script>
+
+      if (!('serviceWorker' in navigator)) {
+  alert("Mobil tarayıcınız Service Worker desteklemiyor!");
+}
+
+      
 //<![CDATA[
 (function () {
   var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
