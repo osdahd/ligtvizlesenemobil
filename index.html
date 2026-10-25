@@ -807,11 +807,12 @@
 
 
 
-    <script>
+  <script>
 (function () {
   var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
-  var TELEGRAM_URL = ''; // örn: 'https://t.me/kanaladiniz' (boş bırakırsanız gösterilmez)
+  var TELEGRAM_URL = ''; // örn: 'https://t.me/kanaladiniz' (boşsa gösterilmez)
   var WAIT_DAYS = 3, DELAY_MS = 6000;
+  var DEBUG = true; // test bitince false yapın
 
   var ua = navigator.userAgent;
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -823,7 +824,7 @@
     try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
   }
   var last = parseInt(store('pushAsked') || '0', 10);
-  if (last && Date.now() - last < WAIT_DAYS * 864e5) return;
+  if (!DEBUG && last && Date.now() - last < WAIT_DAYS * 864e5) return;
 
   function b64uToU8(s) {
     s = s.replace(/-/g, '+').replace(/_/g, '/');
@@ -858,7 +859,11 @@
   function subscribe(reg, d) {
     store('pushAsked', String(Date.now()));
     Notification.requestPermission().then(function (p) {
-      if (p !== 'granted') { d.remove(); return; }
+      if (p !== 'granted') {
+        d.innerHTML = 'İzin sonucu: ' + p;
+        setTimeout(function () { d.remove(); }, 4000);
+        return;
+      }
       return reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: b64uToU8(PUBLIC_KEY)
@@ -867,12 +872,22 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(s.toJSON())
-        });
-      }).then(function () {
-        d.innerHTML = '✅ Teşekkürler! Yeni adres eklenince haber vereceğiz.';
-        setTimeout(function () { d.remove(); }, 3000);
+        }).then(function (r) { return { r: r, s: s }; });
+      }).then(function (x) {
+        if (DEBUG) {
+          d.innerHTML = (x.r.ok ? '✅ Kaydedildi' : '❌ Kayıt hatası') +
+            ' (HTTP ' + x.r.status + ')<br><small>' + x.s.endpoint.slice(0, 60) + '...</small>';
+        } else {
+          d.innerHTML = x.r.ok
+            ? '✅ Teşekkürler! Yeni adres eklenince haber vereceğiz.'
+            : '❌ Bir hata oluştu, lütfen tekrar deneyin.';
+          setTimeout(function () { d.remove(); }, 3000);
+        }
       });
-    }).catch(function () { d.remove(); });
+    }).catch(function (e) {
+      d.innerHTML = '❌ Hata: ' + e.message;
+      setTimeout(function () { d.remove(); }, 6000);
+    });
   }
 
   function whenReady(fn) {
@@ -923,6 +938,7 @@
   else start();
 })();
 </script>
+    
 
     
   </body>
