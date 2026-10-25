@@ -928,6 +928,18 @@
       .then(function () { return navigator.serviceWorker.ready; })
       .then(function (reg) {
         return reg.pushManager.getSubscription().then(function (sub) {
+          if (sub) {
+  try {
+    if (!localStorage.getItem('pushSynced2')) {
+      fetch('/push/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sub.toJSON())
+      }).then(function (r) { if (r.ok) localStorage.setItem('pushSynced2', '1'); });
+    }
+  } catch (e) {}
+  return;
+}
           if (sub || Notification.permission !== 'default') return;
           whenReady(function () {
             banner('🔔 <b>Yeni adres eklenince ilk siz öğrenin.</b> Bildirimleri açmak ister misiniz?',
