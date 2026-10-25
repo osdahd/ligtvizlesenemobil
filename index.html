@@ -484,6 +484,92 @@
 
 
 
+    <script>
+(function () {
+  var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
+  if (!('serviceWorker' in navigator)) return;
+
+  function b64uToU8(s) {
+    s = s.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    var r = atob(s), o = new Uint8Array(r.length);
+    for (var i = 0; i < r.length; i++) o[i] = r.charCodeAt(i);
+    return o;
+  }
+
+  function init() {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function () { return navigator.serviceWorker.ready; })
+      .then(function (reg) {
+        if (!('PushManager' in window) || !('Notification' in window)) return;
+        return reg.pushManager.getSubscription().then(function (sub) {
+          // ✅ SORUN 1 DÜZELTİLDİ: 'denied' olsa bile butonu gizlemiyoruz
+          if (sub) return;  // sadece zaten aboneyse gizle
+
+          var b = document.createElement('button');
+          b.id = 'pushBtn';
+          b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:9999;padding:10px 14px;border:0;border-radius:24px;background:#1a73e8;color:#fff;font:14px sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)';
+
+          // ✅ SORUN 1 devamı: denied ise kırmızı buton + yönlendirme
+          if (Notification.permission === 'denied') {
+            b.textContent = '🔔 Bildirimler engelli — düzelt';
+            b.style.background = '#e53935';
+            b.onclick = function () {
+              alert(
+                'Bildirimler engellenmiş görünüyor.\n\n' +
+                'Düzeltmek için:\n' +
+                '1. Adres çubuğundaki 🔒 simgesine dokunun\n' +
+                '2. "İzinler" → "Bildirimler" → "İzin ver"\n' +
+                '3. Sayfayı yenileyin'
+              );
+            };
+          } else {
+            b.textContent = '🔔 Yeni adres bildirimi al';
+            b.onclick = function () {
+              Notification.requestPermission().then(function (p) {
+                if (p !== 'granted') {
+                  // ✅ SORUN 2 DÜZELTİLDİ: "Engelle" derse butonu kırmızıya çevir, silme
+                  b.textContent = '🔔 Bildirimler engelli — düzelt';
+                  b.style.background = '#e53935';
+                  b.onclick = function () {
+                    alert('Bildirimler engellendi. Tarayıcı ayarlarından izin verin ve sayfayı yenileyin.');
+                  };
+                  return;
+                }
+                return reg.pushManager.subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: b64uToU8(PUBLIC_KEY)
+                }).then(function (s) {
+                  return fetch('/push/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(s.toJSON())
+                  });
+                }).then(function () { b.remove(); });
+              });
+            };
+          }
+          document.body.appendChild(b);
+        });
+      })
+      .catch(function (e) {
+        console.error('[Push] hata:', e);
+      });
+  }
+
+  // ✅ SORUN 3 DÜZELTİLDİ: 'load' yerine DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+    
+
+
+
     
     <main class="container" role="main">
       <header class="appbar" role="banner">
