@@ -807,12 +807,11 @@
 
 
 
-  <script>
+    <script>
 (function () {
   var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
-  var TELEGRAM_URL = ''; // örn: 'https://t.me/kanaladiniz' (boşsa gösterilmez)
+  var TELEGRAM_URL = 'https://t.me/ligtvizlesene1'; // ÖNEMLİ: 'https://t.me/kanaladiniz' yazın
   var WAIT_DAYS = 3, DELAY_MS = 6000;
-  var DEBUG = true; // test bitince false yapın
 
   var ua = navigator.userAgent;
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -824,7 +823,7 @@
     try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
   }
   var last = parseInt(store('pushAsked') || '0', 10);
-  if (!DEBUG && last && Date.now() - last < WAIT_DAYS * 864e5) return;
+  if (last && Date.now() - last < WAIT_DAYS * 864e5) return;
 
   function b64uToU8(s) {
     s = s.replace(/-/g, '+').replace(/_/g, '/');
@@ -842,7 +841,7 @@
     row.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
     buttons.forEach(function (b) {
       var el = document.createElement(b.href ? 'a' : 'button');
-      if (b.href) { el.href = b.href; el.target = '_blank'; }
+      if (b.href) { el.href = b.href; el.target = '_blank'; el.rel = 'noopener'; }
       el.textContent = b.text;
       el.style.cssText = 'padding:9px 14px;border:0;border-radius:20px;font:600 14px sans-serif;text-decoration:none;cursor:pointer;' +
         (b.primary ? 'background:#fff;color:#1a73e8' : 'background:rgba(255,255,255,.2);color:#fff');
@@ -855,13 +854,19 @@
   }
 
   function later(d) { store('pushAsked', String(Date.now())); d.remove(); }
+  var tg = TELEGRAM_URL ? [{ text: '✈️ Telegram kanalı', href: TELEGRAM_URL, primary: true }] : [];
+
+  function fallback(d, msg) {
+    if (d) d.remove();
+    if (!tg.length) return;
+    banner(msg, tg.concat([{ text: 'Kapat', fn: later }]));
+  }
 
   function subscribe(reg, d) {
     store('pushAsked', String(Date.now()));
     Notification.requestPermission().then(function (p) {
       if (p !== 'granted') {
-        d.innerHTML = 'İzin sonucu: ' + p;
-        setTimeout(function () { d.remove(); }, 4000);
+        fallback(d, 'Bildirim açılamadı. Yeni adresleri <b>Telegram kanalımızdan</b> takip edebilirsiniz.');
         return;
       }
       return reg.pushManager.subscribe({
@@ -872,21 +877,15 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(s.toJSON())
-        }).then(function (r) { return { r: r, s: s }; });
-      }).then(function (x) {
-        if (DEBUG) {
-          d.innerHTML = (x.r.ok ? '✅ Kaydedildi' : '❌ Kayıt hatası') +
-            ' (HTTP ' + x.r.status + ')<br><small>' + x.s.endpoint.slice(0, 60) + '...</small>';
-        } else {
-          d.innerHTML = x.r.ok
-            ? '✅ Teşekkürler! Yeni adres eklenince haber vereceğiz.'
-            : '❌ Bir hata oluştu, lütfen tekrar deneyin.';
-          setTimeout(function () { d.remove(); }, 3000);
-        }
+        });
+      }).then(function (r) {
+        d.innerHTML = r.ok
+          ? '✅ Teşekkürler! Yeni adres eklenince haber vereceğiz.'
+          : '❌ Kayıt hatası (HTTP ' + r.status + ')';
+        setTimeout(function () { d.remove(); }, 4000);
       });
     }).catch(function (e) {
-      d.innerHTML = '❌ Hata: ' + e.message;
-      setTimeout(function () { d.remove(); }, 6000);
+      fallback(d, '❌ Hata: ' + e.message + '<br>Yeni adresler için Telegram kanalımıza katılın.');
     });
   }
 
@@ -898,11 +897,9 @@
   }
 
   function start() {
-    var tg = TELEGRAM_URL ? [{ text: 'Telegram kanalı', href: TELEGRAM_URL }] : [];
-
     if (inApp) {
       whenReady(function () {
-        banner('🔔 Bildirim için bu sayfayı <b>Chrome veya Safari</b>\'de açın (sağ üst ⋮ → Tarayıcıda aç).',
+        banner('🔔 Bildirim için sayfayı <b>Chrome veya Safari</b>\'de açın (⋮ → Tarayıcıda aç).',
           tg.concat([{ text: 'Tamam', fn: later }]));
       });
       return;
@@ -910,14 +907,22 @@
 
     if (isIOS && !standalone) {
       whenReady(function () {
-        banner('🔔 Yeni adres bildirimi için: <b>Paylaş</b> simgesi → <b>Ana Ekrana Ekle</b>, sonra uygulamayı oradan açın.',
+        banner('🔔 Yeni adres bildirimi için: <b>Paylaş</b> → <b>Ana Ekrana Ekle</b>, sonra uygulamayı oradan açın.',
           tg.concat([{ text: 'Tamam', fn: later }]));
       });
       return;
     }
 
-    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
-    if (Notification.permission === 'denied') return;
+    var supported = ('serviceWorker' in navigator) && ('PushManager' in window) && ('Notification' in window);
+
+    if (!supported || Notification.permission === 'denied') {
+      whenReady(function () {
+        if (!tg.length) return;
+        banner('🔔 <b>Yeni adres eklenince ilk siz öğrenin.</b> Telegram kanalımıza katılın.',
+          tg.concat([{ text: 'Kapat', fn: later }]));
+      });
+      return;
+    }
 
     navigator.serviceWorker.register('/sw.js', { scope: '/' })
       .then(function () { return navigator.serviceWorker.ready; })
@@ -927,7 +932,8 @@
           whenReady(function () {
             banner('🔔 <b>Yeni adres eklenince ilk siz öğrenin.</b> Bildirimleri açmak ister misiniz?',
               [{ text: 'Evet, haber ver', primary: true, fn: function (d) { subscribe(reg, d); } },
-               { text: 'Şimdi değil', fn: later }].concat(tg));
+               { text: 'Şimdi değil', fn: later }].concat(
+               TELEGRAM_URL ? [{ text: 'Telegram', href: TELEGRAM_URL }] : []));
           });
         });
       })
@@ -938,7 +944,6 @@
   else start();
 })();
 </script>
-    
 
     
   </body>
