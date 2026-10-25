@@ -805,65 +805,25 @@
       </footer>
     </main>
 
-    <!-- JS: natif pour accordion + accessibilité -->
-    <script>
-      (function(){
-        function toggleMatch(head, body){
-          const expanded = head.getAttribute('aria-expanded') === 'true';
-          head.setAttribute('aria-expanded', String(!expanded));
-          body.style.display = expanded ? 'none' : 'block';
-          head.querySelector('.m-toggle').textContent = expanded ? '▾' : '▴';
-        }
-        document.querySelectorAll('.match').forEach(function(match){
-          const head = match.querySelector('.m-head');
-          const body = match.querySelector('.m-body');
-          body.style.display = 'none';
-          head.addEventListener('click', function(){ toggleMatch(head, body); });
-          head.addEventListener('keydown', function(e){
-            if(e.key === 'Enter' || e.key === ' '){
-              e.preventDefault();
-              toggleMatch(head, body);
-            }
-          });
-        });
-        document.addEventListener('touchstart', function(){}, {passive:true});
-      })();
-    </script>
-    <script>
-      const menu = document.getElementById('sideMenu');
-      const openBtn = document.getElementById('openMenuBtn');
-      const closeBtn = document.getElementById('closeMenuBtn');
-      openBtn.addEventListener('click', () => {
-        menu.classList.add('open');
-      });
-      closeBtn.addEventListener('click', () => {
-        menu.classList.remove('open');
-      });
-      window.addEventListener('click', (e) => {
-        if(!menu.contains(e.target) && e.target !== openBtn){
-          menu.classList.remove('open');
-        }
-      });
-    </script>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-371528584"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'G-371528584');
-  </script>
 
-<script>
+    <script>
 (function () {
   var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
+  var TELEGRAM_URL = ''; // örn: 'https://t.me/kanaladiniz' (boş bırakırsanız gösterilmez)
+  var WAIT_DAYS = 3, DELAY_MS = 6000;
 
-  var box = document.createElement('div');
-  box.style.cssText = 'position:fixed;top:30px;left:0;right:0;z-index:99999;background:#222;color:#0f0;font:11px monospace;padding:6px;max-height:40vh;overflow:auto';
-  function say(m) {
-    box.innerHTML += m + '<br>';
-    if (!box.parentNode && document.body) document.body.appendChild(box);
+  var ua = navigator.userAgent;
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  var standalone = window.navigator.standalone ||
+    (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+  var inApp = /FBAN|FBAV|Instagram|Line\/|Telegram|TikTok/i.test(ua);
+
+  function store(k, v) {
+    try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
   }
+  var last = parseInt(store('pushAsked') || '0', 10);
+  if (last && Date.now() - last < WAIT_DAYS * 864e5) return;
 
   function b64uToU8(s) {
     s = s.replace(/-/g, '+').replace(/_/g, '/');
@@ -873,50 +833,94 @@
     return o;
   }
 
-  function init() {
-    say('1) init basladi');
-    navigator.serviceWorker.register('/sw.js', { scope: '/' })
-      .then(function (r) {
-        say('2) register tamam');
-        return navigator.serviceWorker.ready;
-      })
-      .then(function (reg) {
-        say('3) ready tamam | izin: ' + Notification.permission);
-        return reg.pushManager.getSubscription().then(function (sub) {
-          say('4) abonelik var mi: ' + !!sub);
-          if (sub || Notification.permission === 'denied') {
-            say('-> buton bilerek eklenmedi');
-            return;
-          }
-          var b = document.createElement('button');
-          b.textContent = '🔔 Yeni adres bildirimi al';
-          b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:9999;padding:10px 14px;border:0;border-radius:24px;background:#1a73e8;color:#fff;font:14px sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)';
-          b.onclick = function () {
-            Notification.requestPermission().then(function (p) {
-              say('izin sonucu: ' + p);
-              if (p !== 'granted') return;
-              return reg.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: b64uToU8(PUBLIC_KEY)
-              }).then(function (s) {
-                return fetch('/push/subscribe', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(s.toJSON())
-                });
-              }).then(function () { say('abone olundu'); b.remove(); });
-            }).catch(function (e) { say('HATA: ' + e.message); });
-          };
-          document.body.appendChild(b);
-          say('5) buton eklendi');
-        });
-      })
-      .catch(function (e) { say('HATA: ' + e.message); });
+  function banner(html, buttons) {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#1a73e8;color:#fff;font:15px/1.4 sans-serif;padding:12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.3)';
+    d.innerHTML = '<div style="margin-bottom:8px">' + html + '</div>';
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
+    buttons.forEach(function (b) {
+      var el = document.createElement(b.href ? 'a' : 'button');
+      if (b.href) { el.href = b.href; el.target = '_blank'; }
+      el.textContent = b.text;
+      el.style.cssText = 'padding:9px 14px;border:0;border-radius:20px;font:600 14px sans-serif;text-decoration:none;cursor:pointer;' +
+        (b.primary ? 'background:#fff;color:#1a73e8' : 'background:rgba(255,255,255,.2);color:#fff');
+      el.onclick = function () { if (b.fn) b.fn(d); };
+      row.appendChild(el);
+    });
+    d.appendChild(row);
+    document.body.appendChild(d);
+    return d;
   }
 
-  say('0) script calisti, readyState: ' + document.readyState);
-  if (document.readyState === 'complete') init();
-  else window.addEventListener('load', init);
+  function later(d) { store('pushAsked', String(Date.now())); d.remove(); }
+
+  function subscribe(reg, d) {
+    store('pushAsked', String(Date.now()));
+    Notification.requestPermission().then(function (p) {
+      if (p !== 'granted') { d.remove(); return; }
+      return reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: b64uToU8(PUBLIC_KEY)
+      }).then(function (s) {
+        return fetch('/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(s.toJSON())
+        });
+      }).then(function () {
+        d.innerHTML = '✅ Teşekkürler! Yeni adres eklenince haber vereceğiz.';
+        setTimeout(function () { d.remove(); }, 3000);
+      });
+    }).catch(function () { d.remove(); });
+  }
+
+  function whenReady(fn) {
+    var done = false;
+    function go() { if (done) return; done = true; fn(); }
+    setTimeout(go, DELAY_MS);
+    window.addEventListener('scroll', function () { setTimeout(go, 1500); }, { once: true, passive: true });
+  }
+
+  function start() {
+    var tg = TELEGRAM_URL ? [{ text: 'Telegram kanalı', href: TELEGRAM_URL }] : [];
+
+    if (inApp) {
+      whenReady(function () {
+        banner('🔔 Bildirim için bu sayfayı <b>Chrome veya Safari</b>\'de açın (sağ üst ⋮ → Tarayıcıda aç).',
+          tg.concat([{ text: 'Tamam', fn: later }]));
+      });
+      return;
+    }
+
+    if (isIOS && !standalone) {
+      whenReady(function () {
+        banner('🔔 Yeni adres bildirimi için: <b>Paylaş</b> simgesi → <b>Ana Ekrana Ekle</b>, sonra uygulamayı oradan açın.',
+          tg.concat([{ text: 'Tamam', fn: later }]));
+      });
+      return;
+    }
+
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return;
+    if (Notification.permission === 'denied') return;
+
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function () { return navigator.serviceWorker.ready; })
+      .then(function (reg) {
+        return reg.pushManager.getSubscription().then(function (sub) {
+          if (sub || Notification.permission !== 'default') return;
+          whenReady(function () {
+            banner('🔔 <b>Yeni adres eklenince ilk siz öğrenin.</b> Bildirimleri açmak ister misiniz?',
+              [{ text: 'Evet, haber ver', primary: true, fn: function (d) { subscribe(reg, d); } },
+               { text: 'Şimdi değil', fn: later }].concat(tg));
+          });
+        });
+      })
+      .catch(function () {});
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();
 </script>
 
