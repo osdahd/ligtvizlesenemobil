@@ -483,85 +483,6 @@
   <body>
 
 
-    <script>
-(function () {
-  var out = document.createElement('pre');
-  out.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;' +
-    'background:#000;color:#0f0;font:11px monospace;padding:8px;' +
-    'max-height:60vh;overflow:auto;white-space:pre-wrap;margin:0;';
-  function log(msg) { out.textContent += msg + '\n'; }
-  function attach() { document.body.appendChild(out); }
-  if (document.body) attach(); else document.addEventListener('DOMContentLoaded', attach);
-
-  log('protocol: ' + location.protocol);
-  log('hostname: ' + location.hostname);
-  log('SW in navigator: ' + ('serviceWorker' in navigator));
-  log('PushManager: ' + ('PushManager' in window));
-  log('Notification: ' + ('Notification' in window));
-
-  if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
-    log('❌ HTTPS YOK → SW çalışmaz. Push imkansız.');
-    return;
-  }
-  if (!('serviceWorker' in navigator)) { log('❌ serviceWorker yok'); return; }
-  if (!('PushManager' in window)) { log('❌ PushManager yok (in-app browser?)'); return; }
-  if (!('Notification' in window)) { log('❌ Notification yok'); return; }
-
-  log('→ /sw.js kaydediliyor...');
-  navigator.serviceWorker.register('/sw.js', { scope: '/' })
-    .then(function () {
-      log('✅ register OK');
-      return navigator.serviceWorker.ready;
-    })
-    .then(function (reg) {
-      log('✅ SW ready');
-      log('permission: ' + Notification.permission);
-      return reg.pushManager.getSubscription().then(function (sub) {
-        log('mevcut abonelik: ' + (sub ? 'VAR' : 'YOK'));
-        if (sub) return;
-        if (Notification.permission === 'denied') { log('❌ izin reddedilmiş'); return; }
-        // Butonu göster
-        var b = document.createElement('button');
-        b.textContent = '🔔 TEST BUTONU';
-        b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:100000;' +
-          'padding:10px 14px;border:0;border-radius:24px;background:#1a73e8;' +
-          'color:#fff;font:14px sans-serif;';
-        b.onclick = function () {
-          log('→ izin isteniyor...');
-          Notification.requestPermission().then(function (p) {
-            log('izin sonucu: ' + p);
-            if (p !== 'granted') return;
-            var s = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74'
-              .replace(/-/g, '+').replace(/_/g, '/');
-            while (s.length % 4) s += '=';
-            var r = atob(s), u = new Uint8Array(r.length);
-            for (var i = 0; i < r.length; i++) u[i] = r.charCodeAt(i);
-            return reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: u
-            }).then(function (sub) {
-              log('✅ subscribe OK');
-              return fetch('/push/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(sub.toJSON())
-              }).then(function (r) {
-                log('POST /push/subscribe → ' + r.status);
-              });
-            });
-          }).catch(function (e) { log('❌ hata: ' + e.message); });
-        };
-        document.body.appendChild(b);
-        log('✅ BUTON EKLENDİ');
-      });
-    })
-    .catch(function (e) {
-      log('❌ register/ready HATA: ' + (e && e.message ? e.message : e));
-    });
-})();
-</script>
-
-
 
     
     <main class="container" role="main">
@@ -950,12 +871,25 @@
 })();
 </script>
     
-
-    <script>
-//<![CDATA[
+<script>
 (function () {
+  'use strict';
+
   var PUBLIC_KEY = 'BJmzGx0IHb2QCp3Prj62VA7P3znfynm067WBX0lTeSTB5q4-TnQeGLDJL5hm5LBTHsnM0ZOBqtfXooDxDpT1K74';
-  if (!('serviceWorker' in navigator)) return;
+  var TELEGRAM_URL = 'https://t.me/ligtvizlesene1';
+  var DEBUG = false; // canlıda false bırakın
+
+  function log() { if (DEBUG && window.console) console.log.apply(console, ['[Push]'].concat([].slice.call(arguments))); }
+
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  var isAndroid = /Android/.test(navigator.userAgent);
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                  || window.navigator.standalone === true;
+  var isInApp = /FBAN|FBAV|Instagram|Twitter|Line|Telegram|WhatsApp|MicroMessenger/i.test(navigator.userAgent);
+
+  log('iOS:', isIOS, 'Android:', isAndroid, 'standalone:', isStandalone, 'inApp:', isInApp);
+  log('protocol:', location.protocol);
+  log('SW:', 'serviceWorker' in navigator, 'Push:', 'PushManager' in window, 'Notif:', 'Notification' in window);
 
   function b64uToU8(s) {
     s = s.replace(/-/g, '+').replace(/_/g, '/');
@@ -965,38 +899,201 @@
     return o;
   }
 
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js', { scope: '/' })
-      .then(function () { return navigator.serviceWorker.ready; })
-      .then(function (reg) {
-        if (!('PushManager' in window) || !('Notification' in window)) return;
-        return reg.pushManager.getSubscription().then(function (sub) {
-          if (sub || Notification.permission === 'denied') return;
-          var b = document.createElement('button');
-          b.textContent = '🔔 Yeni adres bildirimi al';
-          b.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:9999;padding:10px 14px;border:0;border-radius:24px;background:#1a73e8;color:#fff;font:14px sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)';
-          b.onclick = function () {
-            Notification.requestPermission().then(function (p) {
-              if (p !== 'granted') return;
-              return reg.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: b64uToU8(PUBLIC_KEY)
-              }).then(function (s) {
-                return fetch('/push/subscribe', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(s.toJSON())
-                });
-              }).then(function () { b.remove(); });
-            });
-          };
-          document.body.appendChild(b);
+  // ---- Kullanıcıya yönlendirme modalı ----
+  function showHowToEnable() {
+    var msg;
+    if (isAndroid) {
+      msg = 'Bildirimler engellenmiş görünüyor.\n\n' +
+            'Düzeltmek için:\n' +
+            '1. Adres çubuğunun solundaki 🔒 simgesine dokunun\n' +
+            '2. "İzinler" → "Bildirimler" → "İzin ver"\n' +
+            '3. Sayfayı yenileyin\n\n' +
+            'Alternatif: Telegram kanalımıza katılın → ' + TELEGRAM_URL;
+    } else if (isIOS) {
+      msg = 'Bildirimler engellenmiş görünüyor.\n\n' +
+            'Düzeltmek için:\n' +
+            '1. Adres çubuğundaki "aA" simgesine dokunun\n' +
+            '2. "Web Sitesi Ayarları" → "Bildirimler" → "İzin Ver"\n' +
+            '3. Sayfayı yenileyin\n\n' +
+            'Not: iOS\'ta push sadece ana ekrana eklenmiş uygulamada çalışır.\n\n' +
+            'Alternatif: Telegram kanalımıza katılın → ' + TELEGRAM_URL;
+    } else {
+      msg = 'Bildirimler engellenmiş görünüyor.\n\n' +
+            'Tarayıcı ayarlarından bu site için bildirim iznini açın ve sayfayı yenileyin.\n\n' +
+            'Alternatif: Telegram kanalımıza katılın → ' + TELEGRAM_URL;
+    }
+    alert(msg);
+  }
+
+  // ---- Buton kutusunu oluştur ----
+  function buildUI(reg) {
+    if (document.getElementById('pushBox')) return;
+
+    var box = document.createElement('div');
+    box.id = 'pushBox';
+    box.style.cssText =
+      'position:fixed;right:16px;bottom:16px;z-index:100000;' +
+      'display:flex;flex-direction:column;gap:8px;align-items:flex-end;' +
+      'font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;';
+
+    // 1) Push butonu
+    var pushBtn = document.createElement('button');
+    pushBtn.id = 'pushBtn';
+    pushBtn.type = 'button';
+    pushBtn.style.cssText =
+      'padding:10px 14px;border:0;border-radius:24px;' +
+      'background:#1a73e8;color:#fff;font:14px sans-serif;cursor:pointer;' +
+      'box-shadow:0 2px 8px rgba(0,0,0,.3);';
+    box.appendChild(pushBtn);
+
+    // 2) Telegram butonu (her zaman çalışır — yedek kanal)
+    var tg = document.createElement('a');
+    tg.href = TELEGRAM_URL;
+    tg.target = '_blank';
+    tg.rel = 'noopener';
+    tg.textContent = '📢 Telegram\'da takip et';
+    tg.style.cssText =
+      'padding:10px 14px;border:0;border-radius:24px;' +
+      'background:#0088cc;color:#fff;font:14px sans-serif;text-decoration:none;' +
+      'box-shadow:0 2px 8px rgba(0,0,0,.3);';
+    box.appendChild(tg);
+
+    document.body.appendChild(box);
+
+    // ---- Push butonu davranışı ----
+    function setDeniedState() {
+      pushBtn.textContent = '🔔 Bildirimler engelli — düzelt';
+      pushBtn.style.background = '#e53935';
+      pushBtn.onclick = function () { showHowToEnable(); };
+    }
+
+    function setActiveState() {
+      pushBtn.textContent = '🔔 Yeni adres bildirimi al';
+      pushBtn.style.background = '#1a73e8';
+      pushBtn.onclick = onSubscribeClick;
+    }
+
+    function onSubscribeClick() {
+      if (!('Notification' in window)) {
+        setDeniedState();
+        return;
+      }
+      Notification.requestPermission().then(function (p) {
+        log('permission result:', p);
+        if (p !== 'granted') {
+          setDeniedState();
+          return;
+        }
+        return reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: b64uToU8(PUBLIC_KEY)
+        }).then(function (sub) {
+          log('subscribed:', sub);
+          return fetch('/push/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(sub.toJSON())
+          }).then(function (r) {
+            log('POST /push/subscribe →', r.status);
+            // Başarılıysa butonu kaldır (sadece Telegram kalsın)
+            pushBtn.remove();
+            // İsterseniz burada teşekkür mesajı gösterebilirsiniz
+          });
         });
+      }).catch(function (e) {
+        log('subscribe error:', e);
+        setDeniedState();
       });
-  });
+    }
+
+    // ---- Başlangıç durumu ----
+    // Önemli: Notification.permission'a KÖRÜ KÖRÜNE güvenmiyoruz.
+    // Önce gerçek abonelik var mı diye bakıyoruz.
+    reg.pushManager.getSubscription().then(function (sub) {
+      if (sub) {
+        log('zaten abone → push butonu gizleniyor');
+        pushBtn.remove();
+        return;
+      }
+      if (('Notification' in window) && Notification.permission === 'denied') {
+        // denied görünüyor ama abone değil → kırmızı buton + yönlendirme
+        // (Chrome bazen yanlış raporlar; kullanıcı tıklarsa yönlendiririz)
+        setDeniedState();
+      } else {
+        setActiveState();
+      }
+    }).catch(function (e) {
+      log('getSubscription error:', e);
+      setActiveState();
+    });
+  }
+
+  // ---- Ana akış ----
+  function init() {
+    // HTTPS kontrolü
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+      log('HTTPS yok → push çalışmaz, sadece Telegram gösteriliyor');
+      buildFallbackUI();
+      return;
+    }
+    // In-app browser → push yok, sadece Telegram
+    if (isInApp) {
+      log('In-app browser → push yok, sadece Telegram');
+      buildFallbackUI();
+      return;
+    }
+    // iOS + standalone değil → push yok, sadece Telegram + bilgi
+    if (isIOS && !isStandalone) {
+      log('iOS standalone değil → push yok, sadece Telegram');
+      buildFallbackUI();
+      return;
+    }
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+      log('API eksik → sadece Telegram');
+      buildFallbackUI();
+      return;
+    }
+
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function () { log('SW kayıt OK'); return navigator.serviceWorker.ready; })
+      .then(function (reg) { log('SW ready'); buildUI(reg); })
+      .catch(function (e) {
+        log('SW register/ready hata:', e);
+        buildFallbackUI();
+      });
+  }
+
+  // Push mümkün değilse sadece Telegram butonu göster
+  function buildFallbackUI() {
+    if (document.getElementById('pushBox')) return;
+    var box = document.createElement('div');
+    box.id = 'pushBox';
+    box.style.cssText =
+      'position:fixed;right:16px;bottom:16px;z-index:100000;' +
+      'font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;';
+    var tg = document.createElement('a');
+    tg.href = TELEGRAM_URL;
+    tg.target = '_blank';
+    tg.rel = 'noopener';
+    tg.textContent = '📢 Telegram\'da takip et';
+    tg.style.cssText =
+      'padding:10px 14px;border:0;border-radius:24px;' +
+      'background:#0088cc;color:#fff;font:14px sans-serif;text-decoration:none;' +
+      'box-shadow:0 2px 8px rgba(0,0,0,.3);';
+    box.appendChild(tg);
+    document.body.appendChild(box);
+  }
+
+  // DOMContentLoaded kullan (load değil — daha hızlı ve güvenilir)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
-//]]>
 </script>
+
+    
     
   </body>
 </html>
