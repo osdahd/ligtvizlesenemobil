@@ -965,6 +965,43 @@
 })();
 </script>
 
+    <script>
+(function () {
+  // Maç kartlarını aç/kapat
+  document.querySelectorAll('.m-head').forEach(function (head) {
+    function toggle() {
+      var body = head.nextElementSibling;
+      var isOpen = body.style.display === 'block';
+      body.style.display = isOpen ? 'none' : 'block';
+      head.setAttribute('aria-expanded', String(!isOpen));
+      var arrow = head.querySelector('.m-toggle');
+      if (arrow) arrow.textContent = isOpen ? '▾' : '▴';
+    }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+
+  // Yan menü aç/kapat
+  var menu = document.getElementById('sideMenu');
+  var openBtn = document.getElementById('openMenuBtn');
+  var closeBtn = document.getElementById('closeMenuBtn');
+  if (menu && openBtn && closeBtn) {
+    openBtn.addEventListener('click', function () { menu.classList.add('open'); });
+    closeBtn.addEventListener('click', function () { menu.classList.remove('open'); });
+    // Menü dışına tıklayınca kapansın
+    document.addEventListener('click', function (e) {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== openBtn) {
+        menu.classList.remove('open');
+      }
+    });
+  }
+})();
+</script>
     
   </body>
 </html>
